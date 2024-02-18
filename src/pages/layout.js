@@ -1,7 +1,5 @@
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
-import { getServerSession } from "next-auth/next"
-import Provider from "./context/client-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,13 +9,10 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession()
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider session={session}>
           {children}
-        </Provider>
       </body>
     </html>
   );
