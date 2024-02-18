@@ -28,10 +28,10 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
       - name: Cloning repository
-        run: ssh prod 'cd discordlist && git pull https://${{ secrets.GH_AUTH }}:x-oauth-basic@github.com/euandrelucas/discordlist_api.git master --force'
+        run: ssh prod 'cd discordlist && git pull https://${{ secrets.GH_AUTH }}:x-oauth-basic@github.com/euandrelucas/discordlist.git master --force'
       - name: Building container
         run: ssh prod 'bash -i -c "cd discordlist && docker build . -t discoverd/website"'
       - name: Stopping container
         run: ssh prod 'bash -i -c "docker rm --force discoverd"'
       - name: Starting container
-        run: ssh prod 'bash -i -c "docker run -p 7568:3000 --hostname website -d --restart always --network="bridge" --cpuset-cpus=0-5 --memory="15g" --name discoverd discoverd/website"'
+        run: ssh prod 'bash -i -c "docker run -p 7568:3000 --hostname website -d --restart always --network="discordlist" --cpuset-cpus=0-5 --memory="15g" --name discoverd discoverd/website"'
