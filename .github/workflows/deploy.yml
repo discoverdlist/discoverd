@@ -1,0 +1,37 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  deploy:
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Setup ssh
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/key
+          chmod 600 ~/.ssh/key
+          cat >>~/.ssh/config << END
+          Host prod
+            HostName $SSH_HOST
+            User $SSH_USER
+            Port $SSH_PORT
+            IdentityFile ~/.ssh/key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+      - name: Cloning repository
+        run: ssh prod 'cd discordlist && git pull https://${{ secrets.GH_AUTH }}:x-oauth-basic@github.com/euandrelucas/discordlist_api.git master --force'
+      - name: Building container
+        run: ssh prod 'bash -i -c "cd discordlist && docker build . -t discoverd/website"'
+      - name: Stopping container
+        run: ssh prod 'bash -i -c "docker rm --force discoverd"'
+      - name: Starting container
+        run: ssh prod 'bash -i -c "docker run -p 7568:3000 --hostname website -d --restart always --network="bridge" --cpuset-cpus=0-5 --memory="15g" --name discoverd discoverd/website"'
