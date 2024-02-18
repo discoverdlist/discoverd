@@ -34,7 +34,9 @@ body {
 }
 
 .dcicon {
-  float: left
+  float: left;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbarlogo {
