@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-async-client-component */
+"use client"
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
 
