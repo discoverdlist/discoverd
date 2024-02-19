@@ -154,7 +154,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faFire}/>&nbsp;Mais votados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {renderBotCards(newBots)}
+              {mostVotedBots && renderBotCards(mostVotedBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -162,7 +162,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faClock}/>&nbsp;Adicionados recentemente</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {renderBotCards(usedBots)}
+              {newBots && renderBotCards(newBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -170,7 +170,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faChartBar}/>&nbsp;Mais usados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {renderBotCards(mostVotedBots)}
+              {mostVotedBots && renderBotCards(mostVotedBots)}
             </div>
         </section>
     </main>
