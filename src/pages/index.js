@@ -108,6 +108,9 @@ export default function Home() {
   }, []);
 
   const renderBotCards = (bots) => {
+    if (bots.length === 0) {
+      return <p>Nenhum bot encontrado</p>;
+    }
     return bots.map((bot) => (
       <Link href={"/bots/" + bot.id} key={bot.id}>
         <div className="botCard max-w-sm rounded overflow-hidden shadow-lg">
