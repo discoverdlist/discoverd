@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default async function handler(req, res) {
-    console.log(req.query.filter)
     if (req.query && req.query.filter) {
         const response = await axios.get(process.env.API_URL + '/bots?filter=' + req.query.filter, {
             headers: {

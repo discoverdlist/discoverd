@@ -34,4 +34,4 @@ jobs:
       - name: Stopping container
         run: ssh prod 'bash -i -c "docker rm --force discoverd"'
       - name: Starting container
-        run: ssh prod 'bash -i -c "docker run -p 7568:3000 --hostname discoverd -d --restart always --network adgnetwork --cpuset-cpus=0-5 --memory="15g" --name discoverd discoverd/website"'
+        run: ssh prod 'bash -i -c "docker run --add-host=localapi:172.20.0.2 -p 7568:3000 --hostname discoverd -d --restart always --network adgnetwork --cpuset-cpus=0-5 --memory="15g" --name discoverd discoverd/website"'
