@@ -7,15 +7,38 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.info {
+  color: #FF0000;
+}
+
 .formQuestion {
   color: #FFFFFF;
   font-size: 24px;
   font-family: 'Roboto', sans-serif;
-  margin-top: 10px;
 }
 
 .formInput {
   background-color: gray;
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+  inline-size: 500px;
+  margin-top: 20px;
+}
+
+.formInput:disabled {
+  background-color: #484848;
+}
+
+.successCard {
+  background-color: #484848;
+  border-radius: 10px;
+}
+
+.errorCard {
+  background-color: #FF0000;
   border-radius: 10px;
   color: #FFFFFF;
   font-size: 16px;

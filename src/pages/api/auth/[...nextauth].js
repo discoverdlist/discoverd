@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
 
-const scopes = ['identify'].join(' ')
+const scopes = ['identify', 'email'].join(' ')
 
 export default NextAuth({
     secret: process.env.SECRET,
@@ -12,4 +12,11 @@ export default NextAuth({
             authorization: {params: {scope: scopes}},
         }),
     ],
+    // quero que o ID do usuário faça parte dos dados da sessão que são enviados para o front-end
+    callbacks: {
+        async session(session, token) {
+            session.session.user.id = session.token.sub
+            return session
+        },
+    },
 })

@@ -8,8 +8,8 @@ import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Navbar() {
-    const { data: session } = useSession();
-    if (session) {
+    const { data: auth } = useSession();
+    if (auth) {
         return (
             <nav>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-4 relative">
@@ -18,7 +18,7 @@ export default function Navbar() {
                     </Link>
                     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown">
-                            <Image className="avatar" src={session.user.image} width="40" height="40" alt={session.user.name} />
+                            <Image className="avatar" src={auth.session.user.image} width="40" height="40" alt={auth.session.user.name} />
                         </button>
                         <div id="dropdownDefault" data-dropdown-content className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg mt-2 shadow w-44 absolute top-full left-0 dark:bg-gray-700">
                             <ul>

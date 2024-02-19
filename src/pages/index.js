@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import Link from "next/link"
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
+import { useState, useEffect } from "react";
 // Components
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -71,27 +73,65 @@ const mostVotedBots = [
 ];
 
 export default function Home() {
-  const mostVotedBotsData = mostVotedBots.map((bot) => {
-    return (
-      // eslint-disable-next-line react/jsx-key
-      <Link href={"/bots/" + bot.id}>
-      <div className="botCard max-w-sm rounded overflow-hidden shadow-lg">
-        <div className="px-6 py-4">
+  const [mostVotedBots, setMostVotedBots] = useState([]);
+  const [newBots, setNewBots] = useState([]);
+  const [usedBots, setUsedBots] = useState([]);
+  useEffect(() => {
+    const fetchBots = async (filter, limit) => {
+      try {
+        if (filter) {
+          switch (filter) {
+            case 'votes':
+              const response = await fetch(`/api/bots?filter=votes${limit ? `&limit=${limit}` : ''}`);
+              const data = await response.json();
+              setMostVotedBots(data);
+              break;
+            case 'newest':
+              const response2 = await fetch(`/api/bots?filter=new${limit ? `&limit=${limit}` : ''}`);
+              const data2 = await response2.json();
+              setNewBots(data2);
+              break;
+            case 'used':
+              const response3 = await fetch(`/api/bots?filter=used${limit ? `&limit=${limit}` : ''}`);
+              const data3 = await response3.json();
+              setUsedBots(data3);
+              break;
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching most voted bots:", error);
+      }
+    };
+    fetchBots('votes', 6);
+    fetchBots('newest', 6);
+    fetchBots('used', 6);
+  }, []);
+
+  const renderBotCards = (bots) => {
+    return bots.map((bot) => (
+      <Link href={"/bots/" + bot.id} key={bot.id}>
+        <div className="botCard max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="px-6 py-4">
             <Image className="botCardAvatar" src={bot.avatar} width="64" height="64" alt={bot.name} />
             <div className="botCardTitle">{bot.name}</div>
             <p className="botCardDescription">
-                {bot.description.slice(0, 90)}
-                {bot.description.length > 90 ? '...' : ''}
+              {bot.description.slice(0, 90)}
+              {bot.description.length > 90 ? "..." : ""}
             </p>
+          </div>
+          <div className="px-6 pt-4 pb-2">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+              Servidores: {bot.servers}
+            </span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+              Votos: {bot.votes}
+            </span>
+          </div>
         </div>
-        <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">Servidores: {bot.status.guilds}</span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">Votos: {bot.status.votes}</span>
-        </div>
-      </div>
       </Link>
-    );
-  });
+    ));
+  };
+
   return (
     <main>
         <Navbar />
@@ -114,7 +154,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faFire}/>&nbsp;Mais votados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mostVotedBotsData}
+              {renderBotCards(newBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -122,7 +162,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faClock}/>&nbsp;Adicionados recentemente</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mostVotedBotsData}
+              {renderBotCards(usedBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -130,7 +170,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faChartBar}/>&nbsp;Mais usados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mostVotedBotsData}
+              {renderBotCards(mostVotedBots)}
             </div>
         </section>
     </main>

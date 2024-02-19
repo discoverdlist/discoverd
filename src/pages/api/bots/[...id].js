@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default async function handler(req, res) {
-    const response = await axios.get(process.env.API_URL + '/users/' + req.query.id[0], {
+    const response = await axios.get(process.env.API_URL + '/bots/' + req.query.id[0], {
         headers: {
             'Authorization': process.env.AUTH_TOKEN
         }
