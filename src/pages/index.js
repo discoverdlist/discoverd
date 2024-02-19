@@ -108,10 +108,11 @@ export default function Home() {
   }, []);
 
   const renderBotCards = (bots) => {
-    if (bots.length === 0) {
-      return <p>Nenhum bot encontrado</p>;
-    }
-    return bots.map((bot) => (
+    if (bots.message) return <p className="placeHolderBotsText">Nenhum bot encontrado</p>;
+    if (bots.length === 0 || bots === undefined || bots === null) {
+      return <p className="placeHolderBotsText">Nenhum bot encontrado</p>;
+    } else {
+      return bots.map((bot) => (
       <Link href={"/bots/" + bot.id} key={bot.id}>
         <div className="botCard max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
@@ -133,6 +134,7 @@ export default function Home() {
         </div>
       </Link>
     ));
+    }
   };
 
   return (
@@ -157,7 +159,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faFire}/>&nbsp;Mais votados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mostVotedBots && renderBotCards(mostVotedBots)}
+              {renderBotCards(mostVotedBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -165,7 +167,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faClock}/>&nbsp;Adicionados recentemente</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {newBots && renderBotCards(newBots)}
+              {renderBotCards(newBots)}
             </div>
         </section>
         <section className="max-w-screen-xl mx-auto p-4 mt-10" id="mostVotedBots">
@@ -173,7 +175,7 @@ export default function Home() {
                 <h2 className="heroTitle"><FontAwesomeIcon className="dcicon" width="24" height="24" icon={faChartBar}/>&nbsp;Mais usados</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mostVotedBots && renderBotCards(mostVotedBots)}
+              {renderBotCards(mostVotedBots)}
             </div>
         </section>
     </main>
