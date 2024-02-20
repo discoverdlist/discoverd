@@ -1,13 +1,9 @@
-/* eslint-disable react/jsx-key */
 import Link from "next/link"
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
-// Components
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export default function Home() {
   const [mostVotedBots, setMostVotedBots] = useState([]);
@@ -73,7 +69,6 @@ export default function Home() {
     ));
     }
   };
-
   return (
     <main>
         <Navbar />
