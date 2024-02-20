@@ -50,7 +50,7 @@ export default function Home() {
       return <p className="placeHolderBotsText">Nenhum bot encontrado</p>;
     } else {
       return bots.map((bot) => (
-      <Link href={"/bots/" + bot.id} key={bot.id}>
+      <Link href={"/bots/" + bot._id} key={bot._id}>
         <div className="botCard max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
             <Image className="botCardAvatar" src={bot.avatar} width="64" height="64" alt={bot.name} />

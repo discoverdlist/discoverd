@@ -122,11 +122,11 @@ export default function CreateBot() {
                 <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
                     <div className="col-span-1">
                         <label className="formQuestion block text-sm font-medium" htmlFor="id">ID do bot</label>
-                        <input required="true" type="number" id="id" name="id" className="formInput" onChange={handleChange} />
+                        <input required={true} type="number" id="id" name="id" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
-                        <input placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required="true" type="text" id="description" name="description" className="formInput" onChange={handleChange} />
+                        <input placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
                     </div>
                     <div>
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>
@@ -135,7 +135,7 @@ export default function CreateBot() {
                     </div>
                     <div className="col-span-1">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="description">Descrição do bot</label>
-                        <textarea id="longDescription" name="longDescription" required="true" className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
+                        <textarea id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
                     </div>
                     <div className="col-span-1">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="website">Website do bot</label>
