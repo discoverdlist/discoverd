@@ -1,11 +1,12 @@
 import Navbar from "../../components/Navbar";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from 'react';
 
 export default function CreateBot() {
     const { data: auth } = useSession();
     const ownerRef = useRef();
+    const [botBlock, setBotBlock] = useState({});
 
     const [formData, setFormData] = useState({
         id: "",
@@ -77,12 +78,43 @@ export default function CreateBot() {
         }
     };
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
+        if (e.target.name === "id") {
+                if (e.target.value === "") {
+                    setBotBlock({});
+                    return;
+                }
+                const fetchBot = async () => {
+                    try {
+                        const response = await fetch(`/api/bots/botblock/${e.target.value}`);
+                        const data = await response.json();
+                        if (data) {
+                            setBotBlock(data);
+                        } else {
+                            setBotBlock(data);
+                        }
+                    } catch (error) {
+                        console.error("Error fetching bot:", error);
+                    }
+                };
+                await fetchBot();
+        }
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
         });
     };
+
+    useEffect(() => {
+        if (botBlock && botBlock.id) {
+            document.getElementById("invite").value = botBlock.invite;
+            document.getElementById("website").value = botBlock.website;
+            document.getElementById("github").value = botBlock.github;
+            document.getElementById("support").value = botBlock.support;
+            document.getElementById("description").value = botBlock.description;
+            document.getElementById("longDescription").value = botBlock.longDescription;
+        }
+    }, [botBlock]);
 
     if (!auth?.session.user) {
         return (
