@@ -58,10 +58,10 @@ export default function Home() {
           </div>
           <div className="px-6 pt-4 pb-2">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
-              Servidores: {bot.servers}
+              Servidores: {Number(bot.servers).toLocaleString('pt-BR')}
             </span>
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
-              Votos: {bot.votes}
+              Votos: {Number(bot.votes).toLocaleString('pt-BR')}
             </span>
           </div>
         </div>

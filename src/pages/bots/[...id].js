@@ -50,15 +50,15 @@ export default function BotPage() {
                     <div className="botPageData">
                         <div>
                             <FontAwesomeIcon icon={faFire} />&nbsp;
-                            <span className="botDataText">{botData.votes} votos</span>
+                            <span className="botDataText">{Number(botData.votes).toLocaleString('pt-BR')} votos</span>
                         </div>
                         <div>
                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                            <span className="botDataText">Adicionado em {new Date(botData.createdAt).toLocaleDateString()}</span>
+                            <span className="botDataText">Adicionado em {new Date(botData.createdAt).toLocaleDateString('pt-BR')}</span>
                         </div>
                         <div>
                             <FontAwesomeIcon icon={faChartBar} />&nbsp;
-                            <span className="botDataText">{botData.servers} servidores</span>
+                            <span className="botDataText">{Number(botData.servers).toLocaleString('pt-BR')} servidores</span>
                         </div>
                     </div>
                     <button className="voteButton">
