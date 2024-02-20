@@ -16,6 +16,7 @@ export default async function handler(req, res) {
                 }
             }
         }
+        response.apiKey = 'REDACTED'
         res.status(200).json(response.data)
     }
 }
