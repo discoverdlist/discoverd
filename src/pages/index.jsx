@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar.jsx";
 import { useRouter } from 'next/router';
 
 export default function Home() {
@@ -89,7 +89,7 @@ export default function Home() {
                 <h2 className="heroSubtitle">para seu servidor!</h2>
             </div>
             <form onSubmit={search}>
-              <input id="search" type="text" className="searchInput" placeholder="Pesquisar bots..." />
+              <input required="true" id="search" type="text" className="searchInput" placeholder="Pesquisar bots..." />
               <button type="submit" className="searchButton">
                 <svg className="dcicon w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.873-4.873M10 16a6 6 0 100-12 6 6 0 000 12z" />

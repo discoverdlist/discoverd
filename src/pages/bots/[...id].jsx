@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navbar.jsx";
 
 export default function BotPage() {
     const [botData, setBotData] = useState([]);
