@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [mostVotedBots, setMostVotedBots] = useState([]);
   const [newBots, setNewBots] = useState([]);
   const [usedBots, setUsedBots] = useState([]);
+  const router = useRouter();
+
   useEffect(() => {
     const fetchBots = async (filter, limit) => {
       try {
@@ -44,7 +47,7 @@ export default function Home() {
     e.preventDefault();
     const search = e.target[0].value;
     if (search) {
-      window.location.href = `/bots/search?search=${search}`;
+      router.push(`/bots/search?search=${search}`);
     }
   };
 
