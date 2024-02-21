@@ -12,7 +12,7 @@ export default function Navbar() {
     if (auth) {
         return (
             <nav>
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-4 relative">
+                <div className="navbar flex flex-wrap items-center justify-between mx-auto p-4 mt-4 relative">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <Image className="navbarlogo" src="/assets/logo.png" width="64" height="64" alt="Discord List" />
                     </Link>

@@ -151,37 +151,37 @@ export default function CreateBot() {
                 </div>
             </section>
             <div className="max-w-screen-xl mx-auto p-4 mt-10 rounded">
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
-                    <div className="col-span-1">
+                <form onSubmit={handleSubmit}>
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="id">ID do bot</label>
                         <input required={true} type="number" id="id" name="id" className="formInput" onChange={handleChange} />
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
                         <input placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
                     </div>
-                    <div>
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>
                         <p className="info text-sm mb-2">Se deixado em branco, criaremos um automaticamente</p>
                         <input type="text" id="invite" name="invite" className="formInput" onChange={handleChange} />
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="description">Descrição do bot</label>
                         <textarea id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="website">Website do bot</label>
                         <input type="text" id="website" name="website" className="formInput" onChange={handleChange} />
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="github">GitHub do bot</label>
                         <input type="text" id="github" name="github" className="formInput" onChange={handleChange} />
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark text-gray-200" htmlFor="support">Servidor de suporte do bot</label>
                         <input type="text" id="support" name="support" className="formInput" onChange={handleChange} />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-2 mb-4">
                         <button type="submit" id="sendButton" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enviar Bot</button>
                     </div>
                     <div>

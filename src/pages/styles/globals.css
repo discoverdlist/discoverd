@@ -64,10 +64,12 @@ body {
   color: #FF0000;
 }
 
+
 .formQuestion {
   color: #FFFFFF;
   font-size: 24px;
   font-family: 'Roboto', sans-serif;
+  max-width: 100%;
 }
 
 .formInput {
@@ -77,8 +79,9 @@ body {
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
   padding: 10px;
-  inline-size: 500px;
+  inline-size: 100%;
   margin-top: 20px;
+  max-width: 100%;
 }
 
 .formInput:disabled {
@@ -97,12 +100,19 @@ body {
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
   padding: 10px;
+  max-width: 70%;
   margin-top: 20px;
+
 }
 
 .addCard {
   background-color: #484848;
   border-radius: 10px;
+  max-width: 70%;
+}
+
+.navbar {
+  max-width: 70%;
 }
 
 .avatar {
@@ -163,6 +173,7 @@ body {
   font-family: 'Roboto', sans-serif;
   margin-top: 20px;
   clear: left;
+  max-width: 70%;
 }
 
 .botCardAvatar {

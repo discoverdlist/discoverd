@@ -18,7 +18,7 @@ export default function BotPage() {
             }
         };
         fetchBot();
-    })
+    }, [])
     if (botData.message) return (
         <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
             <div>
@@ -35,7 +35,7 @@ export default function BotPage() {
             <section className="hidden errorCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
                 <div>
                     <h2 className="heroTitle">Este bot ainda não foi verificado</h2>
-                    <h2 className="heroSubtitle" id="errorDetails">Para sua segurança, recomenda-se que que aguarde avaliação de vossa equipe</h2>
+                    <h2 className="heroSubtitle hidden md:block" id="errorDetails">Para sua segurança, recomenda-se que que aguarde avaliação de vossa equipe</h2>
                 </div>
             </section>
             <section className="addCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg" id="botDetails">
