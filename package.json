@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start": "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2 next start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
