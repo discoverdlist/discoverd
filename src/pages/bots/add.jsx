@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Navbar from "../../components/Navbar.jsx";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRef } from 'react';
+import { useCallback } from "react";
 
 export default function CreateBot() {
     const { data: auth } = useSession();
@@ -78,7 +80,7 @@ export default function CreateBot() {
         }
     };
 
-    const handleChange = async (e) => {
+    const handleChange = useCallback(async (e) => {
         if (e.target.name === "id") {
                 if (e.target.value === "") {
                     setBotBlock({});
@@ -103,7 +105,7 @@ export default function CreateBot() {
             ...formData,
             [e.target.name]: e.target.value,
         });
-    };
+    });
 
     useEffect(() => {
         if (botBlock && botBlock.id) {
@@ -111,10 +113,27 @@ export default function CreateBot() {
             document.getElementById("website").value = botBlock.website;
             document.getElementById("github").value = botBlock.github;
             document.getElementById("support").value = botBlock.support;
-            document.getElementById("description").value = botBlock.description;
+            document.getElementById("description").value = botBlock.longDescription;
             document.getElementById("longDescription").value = botBlock.longDescription;
+            
+            const formData = {
+                id: botBlock.id,
+                invite: botBlock.invite,
+                avatar: botBlock.avatar,
+                description: botBlock.description,
+                longDescription: botBlock.longDescription,
+                website: botBlock.website,
+                github: botBlock.github,
+                support: botBlock.support,
+                owner: auth.token.sub,
+                apiKey: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+            };
+
+            setFormData(formData);
         }
-    }, [botBlock]);
+    }, [botBlock, setFormData]);
+    
+    
 
     if (!auth?.session.user) {
         return (
