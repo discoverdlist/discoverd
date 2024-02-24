@@ -20,17 +20,20 @@ export default function Home() {
             case 'votes':
               const response = await fetch(`/api/bots?filter=votes${limit ? `&limit=${limit}` : ''}`);
               const data = await response.json();
-              setMostVotedBots(data);
+              const filtered = data.filter(bot => bot.verified === true);
+              await setMostVotedBots(filtered);
               break;
             case 'newest':
               const response2 = await fetch(`/api/bots?filter=new${limit ? `&limit=${limit}` : ''}`);
               const data2 = await response2.json();
-              setNewBots(data2);
+              const filtered2 = data2.filter(bot => bot.verified === true);
+              await setNewBots(filtered2);
               break;
             case 'used':
               const response3 = await fetch(`/api/bots?filter=used${limit ? `&limit=${limit}` : ''}`);
               const data3 = await response3.json();
-              setUsedBots(data3);
+              const filtered3 = data3.filter(bot => bot.verified === true);
+              await setUsedBots(filtered3);
               break;
           }
         }
@@ -52,6 +55,7 @@ export default function Home() {
   };
 
   const renderBotCards = (bots) => {
+    bots.filter(bot => bot.verified === true);
     if (bots.message) return <p className="placeHolderBotsText">Nenhum bot encontrado</p>;
     if (bots.length === 0 || bots === undefined || bots === null) {
       return <p className="placeHolderBotsText">Nenhum bot encontrado</p>;

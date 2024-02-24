@@ -173,32 +173,32 @@ export default function CreateBot() {
                 <form onSubmit={handleSubmit}>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="id">ID do bot</label>
-                        <input required={true} type="number" id="id" name="id" className="formInput" onChange={handleChange} />
+                        <input required={true} type="number" placeholder="O ID de seu bot no discord (vulgo aplicativo)" id="id" name="id" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
-                        <input placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
+                        <input minLength={100} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>
                         <p className="info text-sm mb-2">Se deixado em branco, criaremos um automaticamente</p>
-                        <input type="text" id="invite" name="invite" className="formInput" onChange={handleChange} />
+                        <input type="text" placeholder="Algo tipo: https://discord.com/oauth2/authorize?client_id=ID&permissions=0&scope=bot%20applications.commands" id="invite" name="invite" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="description">Descrição do bot</label>
-                        <textarea id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
+                        <textarea placeholder="Fale por que o seu bot é revolucionador e o motivo de adicionar ele" minLength={250} maxLength={4000} id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="website">Website do bot</label>
-                        <input type="text" id="website" name="website" className="formInput" onChange={handleChange} />
+                        <input placeholder="Autoexplativo, algo tipo: https://andrepaiva.dev" type="text" id="website" name="website" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="github">GitHub do bot</label>
-                        <input type="text" id="github" name="github" className="formInput" onChange={handleChange} />
+                        <input placeholder="Se ele for código aberto, algo tipo: https://github.com/euandrelucas" type="text" id="github" name="github" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark text-gray-200" htmlFor="support">Servidor de suporte do bot</label>
-                        <input type="text" id="support" name="support" className="formInput" onChange={handleChange} />
+                        <input placeholder="Autoexplicativo também, algo tipo: https://discord.gg/dreamteam" type="text" id="support" name="support" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-2 mb-4">
                         <button type="submit" id="sendButton" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enviar Bot</button>
