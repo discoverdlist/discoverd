@@ -3,6 +3,10 @@ FROM node:latest
 # Create app directory
 WORKDIR /usr/src/app
 
+# Change timezone
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && echo 'America/Sao_Paulo' > /etc/timezone
+
 # Install Jemalloc
 RUN apt-get update && apt-get install libjemalloc-dev -y && apt-get clean
 ENV LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libjemalloc.so" 

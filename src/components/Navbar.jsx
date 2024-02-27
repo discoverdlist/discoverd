@@ -23,10 +23,10 @@ export default function Navbar() {
                         <div id="dropdownDefault" data-dropdown-content className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg mt-2 shadow w-44 absolute top-full left-0 dark:bg-gray-700">
                             <ul>
                                 <li>
-                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</Link>
+                                    <Link href="/" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Configurações</Link>
+                                    <Link href="/" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Configurações</Link>
                                 </li>
                                 <li>
                                     <Link href="/bots/add" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Adicionar bot</Link>
@@ -49,13 +49,6 @@ export default function Navbar() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                             </svg>
                         </button>
-                        <Script id="navbar-stickysc">
-                        {`document.getElementById('btncl').addEventListener('click', function() {
-                            var navdt = document.getElementById('navdt');
-                            navdt.classList.toggle('hidden');
-                            navdt.classList.toggle('block');
-                        });`}
-                        </Script>
                     </div>
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                         <ul id="navdt" className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">

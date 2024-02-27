@@ -109,12 +109,12 @@ export default function CreateBot() {
 
     useEffect(() => {
         if (botBlock && botBlock.id) {
-            document.getElementById("invite").value = botBlock.invite;
-            document.getElementById("website").value = botBlock.website;
-            document.getElementById("github").value = botBlock.github;
-            document.getElementById("support").value = botBlock.support;
-            document.getElementById("description").value = botBlock.longDescription;
-            document.getElementById("longDescription").value = botBlock.longDescription;
+            document.getElementById("invite").value = botBlock.invite || "";
+            document.getElementById("website").value = botBlock.website || "";
+            document.getElementById("github").value = botBlock.github || "";
+            document.getElementById("support").value = botBlock.support || "";
+            document.getElementById("description").value = botBlock.longDescription || "";
+            document.getElementById("longDescription").value = botBlock.longDescription || "";
             
             const formData = {
                 id: botBlock.id,
@@ -133,8 +133,6 @@ export default function CreateBot() {
         }
     }, [botBlock, setFormData]);
     
-    
-
     if (!auth?.session.user) {
         return (
             <div>
@@ -177,7 +175,7 @@ export default function CreateBot() {
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
-                        <input minLength={100} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
+                        <input minLength={50} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>

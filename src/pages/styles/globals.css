@@ -88,8 +88,36 @@ body {
   background-color: #484848;
 }
 
+.borrado {
+  filter: blur(5px);
+  animation: desfoqueAnimacao 0.5s ease-in-out; /* Adiciona a animação com duração de 0.5 segundos */
+}
+
+@keyframes desfoqueAnimacao {
+  from {
+    filter: blur(0);
+  }
+  to {
+    filter: blur(5px);
+  }
+}
+
+.apiText {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 20px;
+  float: left;
+  align-items: center;
+}
+
+.apiButton {
+  align-items: center;
+}
+
 .successCard {
   background-color: #484848;
+  max-width: 70%;
   border-radius: 10px;
 }
 
@@ -102,7 +130,6 @@ body {
   padding: 10px;
   max-width: 70%;
   margin-top: 20px;
-
 }
 
 .addCard {

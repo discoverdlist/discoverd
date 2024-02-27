@@ -4,14 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire, faClock, faChartBar } from "@fortawesome/free-solid-svg-icons"
 import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar.jsx";
+import markdownit from 'markdown-it'
 
 export default function BotPage() {
     const [botData, setBotData] = useState([]);
+    const md = new markdownit();
     useEffect(() => {
+        if (window.location.search === "?edit=success") {
+            document.querySelector(".successCard").style.display = "block";
+        } else {
+            document.querySelector(".successCard").style.display = "none";
+        }
         const fetchBot = async () => {
             try {
                 const response = await fetch(`/api/bots/${window.location.pathname.split("/")[2]}`);
                 const data = await response.json();
+                data.markdownDesc = md.render(data.longDescription);
                 setBotData(data);
             } catch (error) {
                 console.error("Error fetching bot:", error);
@@ -20,11 +28,14 @@ export default function BotPage() {
         fetchBot();
     }, [])
     if (botData.message) return (
+        <main>
+        <Navbar/>
         <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-            <div>
-                <h2 className="heroTitle">Bot não encontrado, verifique o ID e tente novamente</h2>
-            </div>
+        <div>
+            <h2 className="heroTitle">Bot não encontrado, verifique o ID e tente novamente</h2>
+        </div>
         </section>
+    </main>
     );
     if (botData.verified === false) {
         document.querySelector(".errorCard").style.display = "block";
@@ -32,6 +43,11 @@ export default function BotPage() {
     return (
         <main>
             <Navbar/>
+            <section className="hidden successCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
+                <div>
+                    <h2 className="heroTitle">Bot editado com sucesso!</h2>
+                </div>
+            </section>
             <section className="hidden errorCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
                 <div>
                     <h2 className="heroTitle">Este bot ainda não foi verificado</h2>
@@ -74,7 +90,7 @@ export default function BotPage() {
                 </div>
             </section>
             <section className="botDescription max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden">
-                {botData.longDescription}
+                <div dangerouslySetInnerHTML={{__html: botData.markdownDesc}}></div>
             </section>
         </main>
     )
