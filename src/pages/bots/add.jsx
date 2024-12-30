@@ -1,15 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Navbar from "../../components/Navbar.jsx";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRef } from 'react';
-import { useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function CreateBot() {
+    const generateApiKey = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     const { data: auth } = useSession();
     const ownerRef = useRef();
     const [botBlock, setBotBlock] = useState({});
-
     const [formData, setFormData] = useState({
         id: "",
         invite: "",
@@ -20,127 +18,113 @@ export default function CreateBot() {
         github: "",
         support: "",
         owner: "",
-        apiKey: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+        apiKey: generateApiKey(),
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const ownerValue = ownerRef.current.value;
+
         try {
             const response = await fetch("/api/bots/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": process.env.NEXT_PUBLIC_API_KEY
+                    "Authorization": process.env.NEXT_PUBLIC_API_KEY,
                 },
                 body: JSON.stringify({ ...formData, owner: ownerValue }),
             });
-            if (response.status === 200) {
-                document.querySelector(".errorCard").style.display = "none";
-                document.querySelector(".addCard").style.display = "none";
-                document.querySelector(".successCard").style.display = "block";
-                document.querySelectorAll("input").forEach((input) => {
-                    input.disabled = true;
-                });
-                document.querySelectorAll("textarea").forEach((textarea) => {
-                    textarea.disabled = true;
-                });
-                document.getElementById("sendButton").disabled = true;
-                console.log("[@discoverd/logs] Bot enviado com sucesso!");
+
+            if (response.ok) {
+                showSuccessMessage();
             } else {
-                document.querySelector(".errorCard").style.display = "block";
-                document.querySelector(".addCard").style.display = "none";
-                switch (response.status) {
-                    case 400:
-                        document.getElementById("errorDetails").innerText = "Requisição inválida";
-                        break;
-                    case 401:
-                        document.getElementById("errorDetails").innerText = "Não autorizado";
-                        break;
-                    case 403:
-                        document.getElementById("errorDetails").innerText = "Proibido";
-                        break;
-                    case 404:
-                        document.getElementById("errorDetails").innerText = "Bot não encontrado ou não existente";
-                        break;
-                    case 409:
-                        document.getElementById("errorDetails").innerText = "Bot já adicionado";
-                        break;
-                    case 500:
-                        document.getElementById("errorDetails").innerText = "Erro interno do servidor";
-                        break;
-                    default:
-                        document.getElementById("errorDetails").innerText = "Erro inesperado";
-                        break;
-                }
-                console.error("[@discoverd/logs] Erro ao enviar bot para a API");
+                showErrorMessage(response.status);
             }
         } catch (error) {
             console.error("[@discoverd/logs] Erro inesperado", error);
         }
     };
 
+    const showSuccessMessage = () => {
+        toggleCardVisibility("successCard", "addCard", "errorCard");
+        disableFormInputs();
+        console.log("[@discoverd/logs] Bot enviado com sucesso!");
+    };
+
+    const showErrorMessage = (status) => {
+        toggleCardVisibility("errorCard", "addCard", "successCard");
+        const errorDetails = getErrorMessage(status);
+        document.getElementById("errorDetails").innerText = errorDetails;
+        console.error("[@discoverd/logs] Erro ao enviar bot para a API");
+    };
+
+    const toggleCardVisibility = (show, hide1, hide2) => {
+        document.querySelector(`.${show}`).style.display = "block";
+        document.querySelector(`.${hide1}`).style.display = "none";
+        document.querySelector(`.${hide2}`).style.display = "none";
+    };
+
+    const getErrorMessage = (status) => {
+        const errorMessages = {
+            400: "Requisição inválida",
+            401: "Não autorizado",
+            403: "Proibido",
+            404: "Bot não encontrado ou não existente",
+            409: "Bot já adicionado",
+            500: "Erro interno do servidor",
+        };
+        return errorMessages[status] || "Erro inesperado";
+    };
+
+    const disableFormInputs = () => {
+        document.querySelectorAll("input, textarea").forEach((element) => element.disabled = true);
+        document.getElementById("sendButton").disabled = true;
+    };
+
     const handleChange = useCallback(async (e) => {
-        if (e.target.name === "id") {
-                if (e.target.value === "") {
-                    setBotBlock({});
-                    return;
-                }
-                const fetchBot = async () => {
-                    try {
-                        const response = await fetch(`/api/bots/botblock/${e.target.value}`);
-                        const data = await response.json();
-                        if (data) {
-                            setBotBlock(data);
-                        } else {
-                            setBotBlock(data);
-                        }
-                    } catch (error) {
-                        console.error("Error fetching bot:", error);
-                    }
-                };
-                await fetchBot();
+        if (e.target.name === "id" && e.target.value !== "") {
+            fetchBotDetails(e.target.value);
         }
-        setFormData({
-            ...formData,
+
+        setFormData((prevData) => ({
+            ...prevData,
             [e.target.name]: e.target.value,
-        });
-    });
+        }));
+    }, []);
+
+    const fetchBotDetails = async (botId) => {
+        try {
+            const response = await fetch(`/api/bots/botblock/${botId}`);
+            const data = await response.json();
+            setBotBlock(data || {});
+        } catch (error) {
+            console.error("Error fetching bot:", error);
+        }
+    };
 
     useEffect(() => {
-        if (botBlock && botBlock.id) {
-            document.getElementById("invite").value = botBlock.invite || "";
-            document.getElementById("website").value = botBlock.website || "";
-            document.getElementById("github").value = botBlock.github || "";
-            document.getElementById("support").value = botBlock.support || "";
-            document.getElementById("description").value = botBlock.longDescription || "";
-            document.getElementById("longDescription").value = botBlock.longDescription || "";
-            
-            const formData = {
+        if (botBlock?.id) {
+            setFormData({
                 id: botBlock.id,
-                invite: botBlock.invite,
-                avatar: botBlock.avatar,
-                description: botBlock.description,
-                longDescription: botBlock.longDescription,
-                website: botBlock.website,
-                github: botBlock.github,
-                support: botBlock.support,
+                invite: botBlock.invite || "",
+                avatar: botBlock.avatar || "",
+                description: botBlock.description || "",
+                longDescription: botBlock.longDescription || "",
+                website: botBlock.website || "",
+                github: botBlock.github || "",
+                support: botBlock.support || "",
                 owner: auth.token.sub,
-                apiKey: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-            };
-
-            setFormData(formData);
+                apiKey: generateApiKey(),
+            });
         }
-    }, [botBlock, setFormData]);
-    
+    }, [botBlock, auth]);
+
     if (!auth?.session.user) {
         return (
             <div>
                 <Navbar />
                 <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                    <div>
-                        <h2 className="heroTitle">Você precisa estar logado para adicionar um bot</h2>
-                    </div>
+                    <h2 className="heroTitle">Você precisa estar logado para adicionar um bot</h2>
                 </section>
             </div>
         );
@@ -150,32 +134,26 @@ export default function CreateBot() {
         <div>
             <Navbar />
             <section className="hidden successCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <div>
-                    <h2 className="heroTitle">Bot adicionado com sucesso!</h2>
-                    <h2 className="heroSubtitle">Agora aguarde nossa equipe verificar ele!</h2>
-                </div>
+                <h2 className="heroTitle">Bot adicionado com sucesso!</h2>
+                <h2 className="heroSubtitle">Agora aguarde nossa equipe verificar ele!</h2>
             </section>
             <section className="hidden errorCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <div>
-                    <h2 className="heroTitle">Ocorreu um erro ao adicionar seu bot</h2>
-                    <h2 className="heroSubtitle" id="errorDetails">Tente novamente mais tarde</h2>
-                </div>
+                <h2 className="heroTitle">Ocorreu um erro ao adicionar seu bot</h2>
+                <h2 className="heroSubtitle" id="errorDetails">Tente novamente mais tarde</h2>
             </section>
             <section className="addCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <div>
-                    <h2 className="heroTitle">Adicione seu bot em nossa lista</h2>
-                    <h2 className="heroSubtitle">e veja ele crescer!</h2>
-                </div>
+                <h2 className="heroTitle">Adicione seu bot em nossa lista</h2>
+                <h2 className="heroSubtitle">e veja ele crescer!</h2>
             </section>
             <div className="max-w-screen-xl mx-auto p-4 mt-10 rounded">
                 <form onSubmit={handleSubmit}>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="id">ID do bot</label>
-                        <input required={true} type="number" placeholder="O ID de seu bot no discord (vulgo aplicativo)" id="id" name="id" className="formInput" onChange={handleChange} />
+                        <input required type="number" placeholder="O ID de seu bot no discord (vulgo aplicativo)" id="id" name="id" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
-                        <input minLength={50} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
+                        <label className="formQuestion block text-sm font-medium" htmlFor="description">Descrição curta</label>
+                        <input minLength={50} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required type="text" id="description" name="description" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>
@@ -184,11 +162,11 @@ export default function CreateBot() {
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="description">Descrição do bot</label>
-                        <textarea placeholder="Fale por que o seu bot é revolucionador e o motivo de adicionar ele" minLength={250} maxLength={4000} id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
+                        <textarea placeholder="Fale por que o seu bot é revolucionador e o motivo de adicionar ele" minLength={250} maxLength={4000} id="longDescription" name="longDescription" required className="formInput h-32 resize-none" onChange={handleChange}></textarea>
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="website">Website do bot</label>
-                        <input placeholder="Autoexplativo, algo tipo: https://andrepaiva.dev" type="text" id="website" name="website" className="formInput" onChange={handleChange} />
+                        <input placeholder="Autoexplicativo, algo tipo: https://andrepaiva.dev" type="text" id="website" name="website" className="formInput" onChange={handleChange} />
                     </div>
                     <div className="col-span-1 mb-4">
                         <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="github">GitHub do bot</label>
@@ -201,9 +179,7 @@ export default function CreateBot() {
                     <div className="col-span-2 mb-4">
                         <button type="submit" id="sendButton" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enviar Bot</button>
                     </div>
-                    <div>
-                        <input type="hidden" id="owner" name="owner" className="formInput" ref={ownerRef} value={auth.token.sub} />
-                    </div>
+                    <input type="hidden" id="owner" name="owner" ref={ownerRef} value={auth.token.sub} />
                 </form>
             </div>
         </div>
