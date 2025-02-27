@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GitlabIcon as GitHub, Twitter } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-            <img className="h-10" src="/assets/logo.png" alt="Discord List" />
+            <Image className="h-10" src="/assets/logo.png" alt="Discord List" />
             <p className="text-gray-400 text-base">
               Descubra os melhores bots para o seu servidor Discord.
             </p>

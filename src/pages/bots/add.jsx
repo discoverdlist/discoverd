@@ -21,8 +21,6 @@ export default function CreateBot() {
   const [formStatus, setFormStatus] = useState(null); // 'success', 'error', or null
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log(session);
-
   const generateApiKey = () =>
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15);
@@ -121,7 +119,7 @@ export default function CreateBot() {
     }
   }, [botBlock, session]);
 
-  if (!session.session?.user) {
+  if (!session) {
     return (
       <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
