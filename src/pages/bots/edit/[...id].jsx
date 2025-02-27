@@ -1,184 +1,330 @@
-import Navbar from "../../../components/Navbar.jsx";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import { Eye, EyeOff, AlertCircle } from "lucide-react";
 
 export default function EditBot() {
-    const { data: auth } = useSession();
-    const [botData, setBotData] = useState({});
-    const [formData, setFormData] = useState({
-        id: "",
-        invite: "",
-        avatar: "",
-        description: "",
-        longDescription: "",
-        website: "",
-        github: "",
-        support: "",
-        owner: "",
-        apiKey: "",
-    });
+  const { data: session } = useSession();
+  const [botId, setBotId] = useState(null);
 
-    const [mostrarChave, setMostrarChave] = useState(false);
+  const [botData, setBotData] = useState({});
+  const [formData, setFormData] = useState({
+    id: "",
+    invite: "",
+    avatar: "",
+    description: "",
+    longDescription: "",
+    website: "",
+    github: "",
+    support: "",
+    owner: "",
+    apiKey: "",
+  });
 
-    const toggleChave = () => {
-      setMostrarChave((prevState) => !prevState);
-    };
+  console.log(botId)
 
-    useEffect(() => {
-        const fetchBot = async () => {
-            try {
-                const response = await fetch(`/api/bots/${window.location.pathname.split("/")[3]}?apiKey=true`);
-                const data = await response.json();
-                console.log(data)
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
-                if (data.owner !== auth.token.sub) {
-                    window.location.href = "/";
-                }
-
-                document.getElementById("id").value = data._id;
-                document.getElementById("description").value = data.description || "";
-                document.getElementById("longDescription").value = data.longDescription || "";
-                document.getElementById("website").value = data.website || "";
-                document.getElementById("github").value = data.github || "";
-                document.getElementById("support").value = data.support || "";
-                document.getElementById("invite").value = data.invite || `https://discord.com/oauth2/authorize?client_id=${data._id}&permissions=8&scope=bot%20applications.commands`;
-
-
-                setBotData(data);
-
-                setFormData({
-                    id: data._id,
-                    invite: data.invite || "",
-                    avatar: data.avatar || "",
-                    description: data.description || "",
-                    longDescription: data.longDescription || "",
-                    website: data.website || "",
-                    github: data.github || "",
-                    support: data.support || "",
-                    owner: data.owner || "",
-                    apiKey: data.apiKey || "",
-                });
-            } catch (error) {
-                console.error("Error fetching bot:", error);
-            }
-        };
-
-        fetchBot();
-    }, [auth]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch(`/api/bots/edit/${window.location.pathname.split("/")[3]}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": process.env.NEXT_PUBLIC_API_KEY,
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.status === 200) {
-                console.log("[@discoverd/logs] Bot editado com sucesso!");
-                window.location.href = `/bots/${botData._id}?edit=success`;
-            } else {
-                document.querySelector(".errorCard").style.display = "block";
-                document.getElementById("errorDetails").innerText = "Erro ao editar bot na API";
-                console.error("[@discoverd/logs] Erro ao editar bot na API");
-            }
-        } catch (error) {
-            console.error("[@discoverd/logs] Erro inesperado", error);
-        }
-    };
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    if (!auth?.session.user) {
-        return (
-            <div>
-                <Navbar />
-                <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                    <div>
-                        <h2 className="heroTitle">Você precisa estar logado para editar um bot</h2>
-                    </div>
-                </section>
-            </div>
-        );
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const id = window.location.pathname.split("/")[3];
+      setBotId(id);
     }
+  }, []);
 
+  useEffect(() => {
+    if (!botId || !session) return;
+
+    const fetchBot = async () => {
+      try {
+        const response = await fetch(`/api/bots/${botId}?apiKey=true`);
+        const data = await response.json();
+
+        if (data.owner !== session.session.user.id) {
+          window.location.href = "/";
+          return;
+        }
+
+        setBotData(data);
+        setFormData({
+          id: data._id,
+          invite:
+            data.invite ||
+            `https://discord.com/oauth2/authorize?client_id=${data._id}&permissions=8&scope=bot%20applications.commands`,
+          avatar: data.avatar || "",
+          description: data.description || "",
+          longDescription: data.longDescription || "",
+          website: data.website || "",
+          github: data.github || "",
+          support: data.support || "",
+          owner: data.owner || "",
+          apiKey: data.apiKey || "",
+        });
+      } catch (error) {
+        console.error("Error fetching bot:", error);
+        setError("Erro ao carregar dados do bot. Tente novamente mais tarde.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBot();
+  }, [botId, session]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/bots/edit/${botId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: process.env.NEXT_PUBLIC_API_KEY,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        window.location.href = `/bots/${botId}?edit=success`;
+      } else {
+        const data = await response.json();
+        setError(data.message || "Erro ao editar bot. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro inesperado", error);
+      setError("Ocorreu um erro inesperado. Tente novamente mais tarde.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  if (!session) {
     return (
-        <div>
-            <Navbar />
-            <section className="hidden successCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <div>
-                    <h2 className="heroTitle">Bot adicionado com sucesso!</h2>
-                    <h2 className="heroSubtitle">Agora aguarde nossa equipe verificar ele!</h2>
-                </div>
-            </section>
-            <section className="hidden errorCard max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <div>
-                    <h2 className="heroTitle">Ocorreu um erro ao adicionar seu bot</h2>
-                    <h2 className="heroSubtitle" id="errorDetails">Tente novamente mais tarde</h2>
-                </div>
-            </section>
-            <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-        <p className="apiText">API Key:&nbsp;</p>
-        <p className={mostrarChave ? 'apiText' : 'apiText borrado'}>
-          {botData.apiKey}
-        </p>
-        &nbsp;
-        <div>
-        &nbsp;
-        &nbsp;
-        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onClick={toggleChave}>
-          {mostrarChave ? 'Ocultar Chave' : 'Mostrar Chave'}
-        </button>
-        </div>
-      </section>
-            <section className="max-w-screen-xl mx-auto p-4 mt-10 rounded overflow-hidden shadow-lg">
-                <form onSubmit={handleSubmit}>
-                <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium" htmlFor="id">ID do bot</label>
-                        <input required={true} type="number" placeholder="O ID de seu bot no discord (vulgo aplicativo)" id="id" name="id" className="formInput" disabled={true} />
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium" htmlFor="invite">Descrição curta</label>
-                        <input minLength={50} maxLength={250} placeholder="Utilize aqui para dar informações curtas e rápidas sobre seu bot" required={true} type="text" id="description" name="description" className="formInput" onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium" htmlFor="invite">Convite do bot</label>
-                        <p className="info text-sm mb-2">Se deixado em branco, criaremos um automaticamente</p>
-                        <input type="text" placeholder="Algo tipo: https://discord.com/oauth2/authorize?client_id=ID&permissions=0&scope=bot%20applications.commands" id="invite" name="invite" className="formInput" onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="description">Descrição do bot</label>
-                        <textarea placeholder="Fale por que o seu bot é revolucionador e o motivo de adicionar ele" minLength={250} maxLength={4000} id="longDescription" name="longDescription" required={true} className="formInput h-32 resize-none" onChange={handleChange} ></textarea>
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="website">Website do bot</label>
-                        <input placeholder="Autoexplativo, algo tipo: https://andrepaiva.dev" type="text" id="website" name="website" className="formInput" onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium text-gray-700 dark:text-gray-200" htmlFor="github">GitHub do bot</label>
-                        <input placeholder="Se ele for código aberto, algo tipo: https://github.com/euandrelucas" type="text" id="github" name="github" className="formInput" onChange={handleChange} />
-                    </div>
-                    <div className="col-span-1 mb-4">
-                        <label className="formQuestion block text-sm font-medium text-gray-700 dark text-gray-200" htmlFor="support">Servidor de suporte do bot</label>
-                        <input placeholder="Autoexplicativo também, algo tipo: https://discord.gg/dreamteam" type="text" id="support" name="support" className="formInput" onChange={handleChange} />
-                    </div>
-                    <div className="col-span-2 mb-4">
-                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                            Salvar Edições
-                        </button>
-                    </div>
-                </form>
-            </section>
-        </div>
+      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Você precisa estar logado para editar um bot
+            </h2>
+          </div>
+        </main>
+        <Footer />
+      </div>
     );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <div className="animate-pulse bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navbar />
+      <main className="flex-grow container mx-auto px-4 py-8">
+        {error && (
+          <div
+            className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6"
+            role="alert"
+          >
+            <div className="flex items-center">
+              <AlertCircle className="h-5 w-5 mr-2" />
+              <p>{error}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            API Key
+          </h2>
+          <div className="flex items-center space-x-4">
+            <p
+              className={`text-gray-700 dark:text-gray-300 ${
+                showApiKey ? "" : "filter blur-sm"
+              }`}
+            >
+              {botData.apiKey}
+            </p>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center"
+              onClick={() => setShowApiKey(!showApiKey)}
+            >
+              {showApiKey ? (
+                <EyeOff className="mr-2" />
+              ) : (
+                <Eye className="mr-2" />
+              )}
+              {showApiKey ? "Ocultar Chave" : "Mostrar Chave"}
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            Editar Bot
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="id"
+              >
+                ID do bot
+              </label>
+              <input
+                type="number"
+                id="id"
+                name="id"
+                value={formData.id}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-100 dark:bg-gray-700"
+                disabled
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="description"
+              >
+                Descrição curta
+              </label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                minLength={50}
+                maxLength={250}
+                required
+                placeholder="Breve descrição do seu bot"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="invite"
+              >
+                Convite do bot
+              </label>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                Se deixado em branco, criaremos um automaticamente
+              </p>
+              <input
+                type="text"
+                id="invite"
+                name="invite"
+                value={formData.invite}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="https://discord.com/oauth2/authorize?client_id=ID&permissions=0&scope=bot%20applications.commands"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="longDescription"
+              >
+                Descrição detalhada do bot
+              </label>
+              <textarea
+                id="longDescription"
+                name="longDescription"
+                value={formData.longDescription}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 h-32"
+                minLength={250}
+                maxLength={4000}
+                required
+                placeholder="Descreva detalhadamente as funcionalidades do seu bot"
+              ></textarea>
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="website"
+              >
+                Website do bot
+              </label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="https://seubot.com"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="github"
+              >
+                GitHub do bot
+              </label>
+              <input
+                type="text"
+                id="github"
+                name="github"
+                value={formData.github}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="https://github.com/seubot"
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                htmlFor="support"
+              >
+                Servidor de suporte do bot
+              </label>
+              <input
+                type="text"
+                id="support"
+                name="support"
+                value={formData.support}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="https://discord.gg/seuservidor"
+              />
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={isLoading}
+              >
+                {isLoading ? "Salvando..." : "Salvar Edições"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
 }

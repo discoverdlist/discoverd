@@ -1,91 +1,193 @@
-/* eslint-disable @next/next/no-async-client-component */
-'use client';
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  LogOut,
+  User,
+  Settings,
+  PlusCircle,
+} from "lucide-react";
 
 export default function Navbar() {
-    const { data: auth } = useSession();
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: auth } = useSession();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    if (auth) {
-        return (
-            <nav>
-                <div className="navbar flex flex-wrap items-center justify-between mx-auto p-4 mt-4 relative">
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image className="navbarlogo" src="/assets/logo.png" width="64" height="64" alt="Discord List" />
-                    </Link>
-                    <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
-                        {/* Botão de Dropdown */}
-                        <button onClick={toggleDropdown}>
-                            <Image className="avatar" src={auth.session.user.image} width="40" height="40" alt={auth.session.user.name} />
-                        </button>
-
-                        {/* Dropdown */}
-                        <div className={`z-10 ${isDropdownOpen ? 'block' : 'hidden'} bg-white divide-y divide-gray-100 rounded-lg mt-2 shadow w-44 absolute top-full left-0 dark:bg-gray-700`}>
-                            <ul>
-                                <li>
-                                    <Link href="/" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</Link>
-                                </li>
-                                <li>
-                                    <Link href="/" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Configurações</Link>
-                                </li>
-                                <li>
-                                    <Link href="/bots/add" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Adicionar bot</Link>
-                                </li>
-                                <li>
-                                    <button onClick={() => signOut()} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Sair</button>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Menu Mobile */}
-                        <button onClick={toggleMenu} type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden">
-                            <span className="sr-only">Abrir Menu</span>
-                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                            </svg>
-                        </button>
+  return (
+    <nav className="bg-gray-800 text-white shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                className="h-8 w-8"
+                src="/assets/logo.png"
+                width={32}
+                height={32}
+                alt="Discord List"
+              />
+            </Link>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link
+                  href="/"
+                  className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+                >
+                  Início
+                </Link>
+                <Link
+                  href="/explore"
+                  className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+                >
+                  Explorar
+                </Link>
+                <Link
+                  href="/partners"
+                  className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+                >
+                  Parceiros
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <div className="ml-4 flex items-center md:ml-6">
+              {auth ? (
+                <div className="relative">
+                  <button
+                    onClick={toggleDropdown}
+                    className="flex items-center max-w-xs bg-gray-800 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  >
+                    <Image
+                      className="h-8 w-8 rounded-full"
+                      src={auth.session.user.image || "/placeholder.svg"}
+                      width={32}
+                      height={32}
+                      alt={auth.session.user.name}
+                    />
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Link
+                        href="/profile"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <User className="mr-3 h-5 w-5 text-gray-400" /> Perfil
+                      </Link>
+                      <Link
+                        href="/settings"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <Settings className="mr-3 h-5 w-5 text-gray-400" />{" "}
+                        Configurações
+                      </Link>
+                      <Link
+                        href="/bots/add"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <PlusCircle className="mr-3 h-5 w-5 text-gray-400" />{" "}
+                        Adicionar bot
+                      </Link>
+                      <button
+                        onClick={() => signOut()}
+                        className="flex w-full items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <LogOut className="mr-3 h-5 w-5 text-gray-400" /> Sair
+                      </button>
                     </div>
-
-                    {/* Links de Navegação */}
-                    <div className={`items-center justify-between ${isMenuOpen ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1`} id="navbar-sticky">
-                        <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
-                            <li>
-                                <Link href="#" className="md:text-white block py-2 px-3 text-white rounded md:hover:bg-transparent md:p-0 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Início</Link>
-                            </li>
-                            <li>
-                                <Link href="#" className="md:text-white block py-2 px-3 text-white rounded md:hover:bg-transparent md:p-0 md:dark:hover:bg-transparent dark:border-gray-700">Explorar</Link>
-                            </li>
-                            <li>
-                                <Link href="#" className="md:text-white block py-2 px-3 text-white rounded md:hover:bg-transparent md:p-0 md:dark:hover:bg-transparent dark:border-gray-700">Parceiros</Link>
-                            </li>
-                        </ul>
-                    </div>
+                  )}
                 </div>
-            </nav>
-        )
-    } else {
-        return (
-            <nav>
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-4">
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image className="navbarlogo" src="/assets/logo.png" width="64" height="64" alt="Discord List" />
-                    </Link>
-                    <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                        <button type="button" onClick={() => signIn('discord')} className="loginbutton text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2 text-center">
-                            <FontAwesomeIcon className="dcicon" width="20" height="20" icon={faDiscord} />&nbsp;Entrar com Discord
-                        </button>
-                    </div>
+              ) : (
+                <button
+                  onClick={() => signIn("discord")}
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Entrar com Discord
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="-mr-2 flex md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            >
+              <span className="sr-only">Abrir menu principal</span>
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" />
+              ) : (
+                <Menu className="block h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {isMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              href="/"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+            >
+              Início
+            </Link>
+            <Link
+              href="/explore"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+            >
+              Explorar
+            </Link>
+            <Link
+              href="/partners"
+              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
+            >
+              Parceiros
+            </Link>
+          </div>
+          <div className="pt-4 pb-3 border-t border-gray-700">
+            {auth ? (
+              <div className="flex items-center px-5">
+                <div className="flex-shrink-0">
+                  <Image
+                    className="h-10 w-10 rounded-full"
+                    src={auth.session.user.image || "/placeholder.svg"}
+                    width={40}
+                    height={40}
+                    alt={auth.session.user.name}
+                  />
                 </div>
-            </nav>
-        )
-    }
+                <div className="ml-3">
+                  <div className="text-base font-medium leading-none">
+                    {auth.session.user.name}
+                  </div>
+                  <div className="text-sm font-medium leading-none text-gray-400">
+                    {auth.session.user.email}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-3 px-2 space-y-1">
+                <button
+                  onClick={() => signIn("discord")}
+                  className="block w-full px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                >
+                  Entrar com Discord
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
 }
