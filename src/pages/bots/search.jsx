@@ -5,8 +5,6 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar.jsx";
-import Footer from "../../components/Footer.jsx";
 
 export default function SearchBots() {
   const [searchResults, setSearchResults] = useState([]);
@@ -106,7 +104,6 @@ export default function SearchBots() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
       <main className="flex-grow">
         <section className="max-w-screen-xl mx-auto p-4 mt-10">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -149,7 +146,6 @@ export default function SearchBots() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }

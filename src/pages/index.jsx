@@ -3,10 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { FlameIcon as Fire, Clock, BarChart3, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  FlameIcon,
+  Clock,
+  BarChart3,
+  Search,
+  Server,
+  ThumbsUp,
+  ArrowRight,
+  Bot,
+} from "lucide-react";
 
 export default function Home() {
   const [mostVotedBots, setMostVotedBots] = useState([]);
@@ -67,14 +74,11 @@ export default function Home() {
   };
 
   const BotCard = ({ bot }) => (
-    <Link
-      href={`/bots/${bot._id}`}
-      className="block transition-all duration-300 hover:translate-y-[-5px]"
-    >
-      <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
-        <div className="p-6">
-          <div className="flex items-center mb-4">
-            <div className="relative w-12 h-12 mr-4 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
+    <Link href={`/bots/${bot._id}`} className="group block">
+      <div className="h-full bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700/50 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-1">
+        <div className="p-5">
+          <div className="flex items-center mb-3">
+            <div className="relative w-12 h-12 mr-3 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700 ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all">
               <Image
                 src={bot.avatar || "/placeholder.svg"}
                 alt={bot.name}
@@ -83,19 +87,21 @@ export default function Home() {
                 sizes="48px"
               />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white truncate">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">
               {bot.name}
             </h3>
           </div>
-          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 text-sm">
             {bot.description}
           </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-              {Number(bot.servers).toLocaleString("pt-BR")} servidores
+          <div className="flex flex-wrap gap-2 mt-auto">
+            <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-100/80 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
+              <Server className="w-3 h-3 mr-1" />
+              {Number(bot.servers).toLocaleString("pt-BR")}
             </span>
-            <span className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-              {Number(bot.votes).toLocaleString("pt-BR")} votos
+            <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-purple-100/80 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
+              <ThumbsUp className="w-3 h-3 mr-1" />
+              {Number(bot.votes).toLocaleString("pt-BR")}
             </span>
           </div>
         </div>
@@ -106,11 +112,11 @@ export default function Home() {
   const BotGrid = ({ bots, isLoading }) => {
     if (isLoading) {
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="bg-gray-100 dark:bg-gray-800 rounded-xl h-48 animate-pulse"
+              className="bg-gray-100/50 dark:bg-gray-800/20 rounded-xl h-[180px] animate-pulse"
             ></div>
           ))}
         </div>
@@ -119,7 +125,8 @@ export default function Home() {
 
     if (!bots || bots.length === 0) {
       return (
-        <div className="text-center py-10">
+        <div className="text-center py-10 bg-gray-50/50 dark:bg-gray-800/20 rounded-xl">
+          <Bot className="w-12 h-12 mx-auto text-gray-400 mb-3" />
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             Nenhum bot encontrado
           </p>
@@ -128,7 +135,7 @@ export default function Home() {
     }
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {bots.map((bot) => (
           <BotCard key={bot._id} bot={bot} />
         ))}
@@ -136,29 +143,43 @@ export default function Home() {
     );
   };
 
-  const SectionHeader = ({ icon, title }) => (
-    <div className="flex items-center mb-6">
-      <div className="mr-2 text-primary">{icon}</div>
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-        {title}
-      </h2>
+  const SectionHeader = ({ icon, title, viewAllLink }) => (
+    <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center">
+        <div className="mr-2 text-primary bg-primary/10 p-2 rounded-lg">
+          {icon}
+        </div>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          {title}
+        </h2>
+      </div>
+      {viewAllLink && (
+        <Link
+          href={viewAllLink}
+          className="text-sm font-medium text-primary hover:text-primary/80 flex items-center"
+        >
+          Ver todos
+          <ArrowRight className="ml-1 w-4 h-4" />
+        </Link>
+      )}
     </div>
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
-
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white py-16">
-          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70 z-0"></div>
+          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] z-0"></div>
+
+          <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+              <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-md">
                 Explore os melhores bots brasileiros
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-white/90">
-                para seu servidor!
+                para seu servidor Discord!
               </p>
 
               <form onSubmit={search} className="relative max-w-2xl mx-auto">
@@ -168,12 +189,12 @@ export default function Home() {
                     id="search"
                     name="search"
                     type="text"
-                    className="w-full h-14 px-5 pr-16 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg"
+                    className="w-full h-14 px-5 pr-16 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50 shadow-xl bg-white/95 backdrop-blur-sm"
                     placeholder="Pesquisar bots..."
                   />
                   <button
                     type="submit"
-                    className="absolute right-0 top-0 h-14 w-14 flex items-center justify-center text-primary bg-white rounded-full"
+                    className="absolute right-1 top-1 h-12 w-12 flex items-center justify-center text-white bg-primary hover:bg-primary/90 rounded-full transition-colors"
                   >
                     <Search className="w-5 h-5" />
                     <span className="sr-only">Pesquisar</span>
@@ -182,42 +203,50 @@ export default function Home() {
               </form>
             </div>
           </div>
-
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent"></div>
         </section>
 
         {/* Content Sections */}
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Most Voted Bots */}
-          <section className="mb-16" id="mostVotedBots">
+          <section
+            className="mb-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50"
+            id="mostVotedBots"
+          >
             <SectionHeader
-              icon={<Fire className="w-6 h-6" />}
+              icon={<FlameIcon className="w-5 h-5" />}
               title="Mais votados"
+              viewAllLink="/bots/top"
             />
             <BotGrid bots={mostVotedBots} isLoading={isLoading} />
           </section>
 
           {/* Newest Bots */}
-          <section className="mb-16" id="newestBots">
+          <section
+            className="mb-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50"
+            id="newestBots"
+          >
             <SectionHeader
-              icon={<Clock className="w-6 h-6" />}
+              icon={<Clock className="w-5 h-5" />}
               title="Adicionados recentemente"
+              viewAllLink="/bots/new"
             />
             <BotGrid bots={newBots} isLoading={isLoading} />
           </section>
 
           {/* Most Used Bots */}
-          <section className="mb-16" id="usedBots">
+          <section
+            className="mb-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50"
+            id="usedBots"
+          >
             <SectionHeader
-              icon={<BarChart3 className="w-6 h-6" />}
+              icon={<BarChart3 className="w-5 h-5" />}
               title="Mais usados"
+              viewAllLink="/bots/popular"
             />
             <BotGrid bots={usedBots} isLoading={isLoading} />
           </section>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

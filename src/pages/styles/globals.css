@@ -2,231 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #343434;
-  font-family: 'Roboto', sans-serif;
-}
-
-.botDescription {
-  color: #DADADA;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  margin-top: 20px;
-}
-
-.addButton {
-  background-color: #5865F2;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-.voteButton {
-  background-color: #4CC9F0;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-
-.placeHolderBotsText {
-  color: #5865F2;
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-}
-
-.botPageAvatar {
-  border-radius: 10px;
-  float: left;
-  margin-right: 20px;
-}
-
-.botPageTitle {
-  color: #FFFFFF;
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.botPageData {
-  text-align: right;
-  color: #FFFFFF;
-  float: right;
-}
-
-.info {
-  color: #FF0000;
-}
-
-
-.formQuestion {
-  color: #FFFFFF;
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-  max-width: 100%;
-}
-
-.formInput {
-  background-color: gray;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  inline-size: 100%;
-  margin-top: 20px;
-  max-width: 100%;
-}
-
-.formInput:disabled {
-  background-color: #484848;
-}
-
-.borrado {
-  filter: blur(5px);
-  animation: desfoqueAnimacao 0.5s ease-in-out; /* Adiciona a animação com duração de 0.5 segundos */
-}
-
-@keyframes desfoqueAnimacao {
-  from {
-    filter: blur(0);
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 252 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 252 59% 48%;
+    --radius: 0.75rem;
   }
-  to {
-    filter: blur(5px);
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 252 59% 54%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 252 59% 54%;
   }
 }
 
-.apiText {
-  color: #FFFFFF;
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-  margin-top: 20px;
-  float: left;
-  align-items: center;
-}
-
-.apiButton {
-  align-items: center;
-}
-
-.successCard {
-  background-color: #484848;
-  max-width: 70%;
-  border-radius: 10px;
-}
-
-.errorCard {
-  background-color: #FF0000;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  max-width: 70%;
-  margin-top: 20px;
-}
-
-.addCard {
-  background-color: #484848;
-  border-radius: 10px;
-  max-width: 70%;
-}
-
-.navbar {
-  max-width: 70%;
-}
-
-.avatar {
-  border-radius: 100px;
-}
-
-.dcicon {
-  float: left;
-  justify-content: center;
-  align-items: center;
-}
-
-.navbarlogo {
-  border-radius: 100px;
-}
-
-.loginbutton {
-  background-color: #5865F2;
-  box-shadow: 2px 2px #1E1E1E;
-}
-
-.loginbutton:hover {
-  background-color: #4B5BD3;
-}
-
-.heroTitle {
-  color: #FFFFFF;
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.heroSubtitle {
-  color: #4CC9F0;
-  font-size: 24px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.botCard {
-  background-color: #484848;
-  border-radius: 10px;
-}
-
-.botCard:hover {
-  background-color: #3A3A3A;
-}
-
-.botCardTitle {
-  color: #FFFFFF;
-  font-size: 24px;
-  margin-left: 90px;
-  margin-top: 10px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.botCardDescription {
-  color: #DADADA;
-  font-size: 14px;
-  font-family: 'Roboto', sans-serif;
-  margin-top: 20px;
-  clear: left;
-  max-width: 70%;
-}
-
-.botCardAvatar {
-  border-radius: 10px;
-  float: left;
-}
-
-.searchInput {
-  background-color: #484848;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  margin-top: 20px;
-  width: 50%;
-  float: left;
-}
-
-.searchButton {
-  background-color: #5865F2;
-  border-radius: 10px;
-  color: #FFFFFF;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-  margin-top: 20px;
-  margin-left: 10px;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
