@@ -1,0 +1,461 @@
+{
+  "common": {
+    "home": "Home",
+    "explore": "Explore",
+    "partners": "Partners",
+    "addBot": "Add Bot",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "loginWithDiscord": "Login with Discord",
+    "connectedAs": "Connected as",
+    "search": "Search",
+    "searchBots": "Search bots...",
+    "viewAll": "View all",
+    "madeWith": "Made with",
+    "inBrazil": "in Brazil",
+    "allRightsReserved": "All rights reserved",
+    "loading": "Loading...",
+    "notFound": "Not found",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "show": "Show",
+    "hide": "Hide",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "warning": "Warning",
+    "view": "View"
+  },
+  "nav": {
+    "mainMenu": "Main menu"
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "support": "Support",
+    "legal": "Legal",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "subscribe": "Subscribe",
+    "subscribeText": "Receive the latest news about bots and updates.",
+    "yourEmail": "Your email",
+    "subscribe": "Subscribe"
+  },
+  "home": {
+    "hero": {
+      "title": "Explore the best Brazilian bots",
+      "subtitle": "for your Discord server!",
+      "searchPlaceholder": "Search bots..."
+    },
+    "sections": {
+      "mostVoted": "Most voted",
+      "recentlyAdded": "Recently added",
+      "mostUsed": "Most used"
+    }
+  },
+  "botCard": {
+    "servers": "servers",
+    "votes": "votes"
+  },
+  "botPage": {
+    "about": "About the Bot",
+    "vote": "Vote",
+    "addToServer": "Add to Server",
+    "botNotFound": "Bot not found",
+    "botNotFoundDesc": "The bot you are looking for does not exist or has been removed.",
+    "backToHome": "Back to home page",
+    "notVerifiedWarning": "Warning: This bot has not yet been verified. For your safety, we recommend waiting for our team's evaluation.",
+    "editSuccess": "Success!",
+    "editSuccessDesc": "Bot edited successfully."
+  },
+  "explore": {
+    "title": "Explore Bots",
+    "subtitle": "Discover the best bots for your Discord server. Use the filters to find exactly what you need.",
+    "searchPlaceholder": "Search bots...",
+    "categories": "Categories",
+    "clearSelection": "Clear selection",
+    "showUnverified": "Show unverified bots",
+    "votes": "Votes",
+    "recent": "Recent",
+    "popular": "Popular",
+    "notVerified": "Not verified",
+    "noBotsFound": "No bots found",
+    "adjustFilters": "Try adjusting your filters or making a new search."
+  },
+  "addBot": {
+    "title": "Add your bot to our list",
+    "subtitle": "Fill out the form below with your Discord bot details",
+    "viewRequirements": "View bot requirements",
+    "loginRequired": "You need to be logged in to add a bot",
+    "loginRequiredDesc": "Log in with your Discord account to continue.",
+    "botId": "Bot ID",
+    "botIdPlaceholder": "Your Discord bot ID",
+    "shortDescription": "Short description",
+    "shortDescriptionPlaceholder": "Brief description of your bot",
+    "minChars": "Minimum: {count} characters",
+    "botInvite": "Bot invite",
+    "botInvitePlaceholder": "https://discord.com/oauth2/authorize?client_id=ID&permissions=0&scope=bot%20applications.commands",
+    "botInviteNote": "If left blank, we will create one automatically",
+    "website": "Bot website",
+    "websitePlaceholder": "https://yourbot.com",
+    "github": "Bot GitHub",
+    "githubPlaceholder": "https://github.com/yourbot",
+    "supportServer": "Support server",
+    "supportServerPlaceholder": "https://discord.gg/yourserver",
+    "detailedDescription": "Detailed bot description",
+    "detailedDescriptionPlaceholder": "Describe in detail the features of your bot",
+    "apiKey": "API Key (automatically generated)",
+    "apiKeyNote": "Keep this key in a safe place. You will need it to manage your bot.",
+    "generateNew": "Generate new",
+    "submitBot": "Submit Bot",
+    "botAddedSuccess": "Bot added successfully! Redirecting...",
+    "unexpectedError": "An unexpected error occurred. Please try again later."
+  },
+  "editBot": {
+    "title": "Edit {botName}",
+    "subtitle": "Update your Discord bot information",
+    "loginRequired": "You need to be logged in to edit a bot",
+    "loginRequiredDesc": "Log in with your Discord account to continue.",
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
+  },
+  "profile": {
+    "title": "Your Profile",
+    "subtitle": "Manage your account and view your bots",
+    "loginRequired": "You need to be logged in to view your profile",
+    "loginRequiredDesc": "Log in with your Discord account to continue.",
+    "userInfo": "User Information",
+    "username": "Username",
+    "email": "Email",
+    "joinedOn": "Joined on",
+    "yourBots": "Your Bots",
+    "noBots": "You haven't added any bots yet",
+    "addYourFirstBot": "Add your first bot",
+    "manageBots": "Manage your bots",
+    "editProfile": "Edit Profile",
+    "deleteAccount": "Delete Account",
+    "deleteAccountWarning": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+    "myBots": "My Bots",
+    "votedBots": "Voted Bots",
+    "noBotsYet": "You don't have any bots yet",
+    "addFirstBot": "How about adding your first bot to our platform?",
+    "noVotedBots": "You haven't voted for any bots yet",
+    "exploreAndVote": "Explore our platform and vote for the bots you like!",
+    "exploreBots": "Explore Bots",
+    "viewDetails": "View Details",
+    "memberSince": "Member since"
+  },
+  "settings": {
+    "title": "Account Settings",
+    "subtitle": "Manage your preferences and account settings",
+    "loginRequired": "You need to be logged in to access settings",
+    "loginRequiredDesc": "Log in with your Discord account to continue.",
+    "generalSettings": "General Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "language": "Language",
+    "notifications": "Notifications",
+    "emailNotifications": "Email notifications",
+    "marketingEmails": "Marketing emails",
+    "securitySettings": "Security Settings",
+    "changePassword": "Change Password",
+    "twoFactorAuth": "Two-factor authentication",
+    "enable": "Enable",
+    "disable": "Disable",
+    "dangerZone": "Danger Zone",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDesc": "Once you delete your account, there is no going back. Please be certain.",
+    "saveSettings": "Save Settings",
+    "settingsSaved": "Settings saved successfully!"
+  },
+  "partners": {
+    "title": "Our Partners",
+    "subtitle": "Meet the companies that make our platform possible",
+    "becomePartner": "Want to become a partner?",
+    "becomePartnerDesc": "Contact us and discover the benefits of being an official partner of our platform.",
+    "contactUs": "Contact us",
+    "visitWebsite": "Visit website",
+    "benefits": {
+      "title": "Partnership Benefits",
+      "promotion": "Promotion on our platform",
+      "badge": "Exclusive partner badge",
+      "support": "Priority support",
+      "api": "API access"
+    },
+    "requirements": {
+      "title": "Partnership Requirements",
+      "community": "Active Discord community",
+      "content": "Quality content or service",
+      "values": "Shared values and goals",
+      "engagement": "Engagement with our platform"
+    },
+    "featured": "Featured Partners",
+    "allPartners": "All Partners",
+    "noPartners": "No partners found"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: {date}",
+    "introduction": "Welcome to DiscordList. By accessing or using our website, you agree to be bound by these Terms of Service. Please read them carefully.",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing or using our services, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "content": "You must be at least 13 years old to use our services. If you are under 18, you must have permission from a parent or guardian to use our services and they must agree to these Terms of Service on your behalf."
+      },
+      "accounts": {
+        "title": "User Accounts",
+        "content": "When you create an account with us, you must provide accurate, complete, and current information. You are responsible for safeguarding the password and for all activities that occur under your account.",
+        "list": {
+          "item1": "You are responsible for maintaining the confidentiality of your account and password.",
+          "item2": "You agree to accept responsibility for all activities that occur under your account.",
+          "item3": "You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account."
+        }
+      },
+      "conduct": {
+        "title": "User Conduct",
+        "content": "You agree not to use our services for any purpose that is unlawful or prohibited by these Terms. You may not use our services in any manner that could damage, disable, overburden, or impair our servers or networks.",
+        "list": {
+          "item1": "You will not post or transmit any content that is unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable.",
+          "item2": "You will not impersonate any person or entity, or falsely state or otherwise misrepresent your affiliation with a person or entity.",
+          "item3": "You will not attempt to gain unauthorized access to any portion of the services, other accounts, computer systems, or networks.",
+          "item4": "You will not collect or store personal data about other users without their express permission.",
+          "item5": "You will not use our services for any illegal or unauthorized purpose."
+        }
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "content": "The service and its original content, features, and functionality are and will remain the exclusive property of DiscordList and its licensors. The service is protected by copyright, trademark, and other laws of both the United States and foreign countries."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "content": "In no event shall DiscordList, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the service."
+      },
+      "modifications": {
+        "title": "Modifications to Terms",
+        "content": "We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion."
+      },
+      "termination": {
+        "title": "Termination",
+        "content": "We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the service will immediately cease."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have any questions about these Terms, please contact us through our support channels."
+      }
+    },
+    "botRequirementsLink": "Bot Requirements",
+    "privacyPolicyLink": "Privacy Policy"
+  },
+  "botRequirements": {
+    "title": "Bot Requirements",
+    "subtitle": "Guidelines for adding bots to our platform",
+    "introduction": "To ensure a safe and high-quality experience for all users, we have established the following requirements for bots listed on our platform. Please review these guidelines carefully before submitting your bot.",
+    "sections": {
+      "general": {
+        "title": "General Requirements",
+        "noMalicious": {
+          "title": "No Malicious Bots",
+          "content": "Bots designed for data theft, phishing, spam, or any other behavior harmful to user security will be permanently banned from the platform."
+        },
+        "compliance": {
+          "title": "Compliance with Discord's Terms of Service",
+          "content": "All bots must comply with Discord's Terms of Service. Bots that violate these rules may be removed without prior notice."
+        },
+        "description": {
+          "title": "Clear Bot Description",
+          "content": "When adding your bot to our list, provide a clear and detailed description of the bot's functionality. This helps users understand what the bot does and how it can be useful."
+        },
+        "permissions": {
+          "title": "Appropriate Permissions",
+          "content": "The bot should not request unnecessary or dangerous permissions, such as full server access or sending messages in private channels without authorization."
+        }
+      },
+      "technical": {
+        "title": "Technical Requirements",
+        "list": {
+          "item1": "The bot must be online and functional at the time of submission and maintain reasonable uptime (at least 90%).",
+          "item2": "The bot must respond to basic commands and not have excessive latency.",
+          "item3": "The bot must handle errors gracefully and not crash on invalid inputs.",
+          "item4": "The bot's code should be reasonably secure and not contain obvious vulnerabilities.",
+          "item5": "The bot should have a help command or documentation that explains its features and usage."
+        }
+      },
+      "verification": {
+        "title": "Verification Process",
+        "content": "All bots submitted to our platform go through a verification process to ensure they meet our standards. The verification process includes:",
+        "list": {
+          "item1": "Initial review of the bot's description and functionality",
+          "item2": "Testing of the bot's commands and features",
+          "item3": "Security assessment to check for potential vulnerabilities",
+          "item4": "Compliance check with our platform's guidelines and Discord's Terms of Service"
+        }
+      },
+      "penalties": {
+        "title": "Penalties for Violations",
+        "content": "Failure to comply with these requirements may result in one or more of the following actions:",
+        "list": {
+          "item1": "Temporary suspension of the bot from our platform",
+          "item2": "Permanent removal of the bot from our platform",
+          "item3": "Suspension or banning of the bot owner's account"
+        }
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "We reserve the right to modify these requirements at any time. It is your responsibility to stay informed about any changes to these requirements. We also reserve the right to remove any bot from our platform at our discretion, even if it complies with all stated requirements."
+      }
+    },
+    "termsOfServiceLink": "Terms of Service",
+    "privacyPolicyLink": "Privacy Policy"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: {date}",
+    "introduction": "At DiscordList, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website.",
+    "sections": {
+      "information": {
+        "title": "Information We Collect",
+        "content": "We collect several types of information from and about users of our website, including:",
+        "subsections": {
+          "personal": {
+            "title": "Personal Information",
+            "list": {
+              "item1": "Discord user ID, username, and avatar",
+              "item2": "Email address (if provided)",
+              "item3": "Information about your bots (if you add them to our platform)",
+              "item4": "Any other information you choose to provide"
+            }
+          },
+          "usage": {
+            "title": "Usage Information",
+            "list": {
+              "item1": "IP address and browser information",
+              "item2": "Pages you visit on our website and how you interact with them",
+              "item3": "Referral source and time spent on the website"
+            }
+          }
+        }
+      },
+      "usage": {
+        "title": "How We Use Your Information",
+        "content": "We use the information we collect about you for various purposes, including:",
+        "list": {
+          "item1": "To provide, maintain, and improve our services",
+          "item2": "To process and display your bots on our platform",
+          "item3": "To communicate with you about updates, security alerts, and support",
+          "item4": "To detect, prevent, and address technical issues",
+          "item5": "To better understand how users interact with our website"
+        }
+      },
+      "sharing": {
+        "title": "Sharing Your Information",
+        "content": "We do not sell or rent your personal information to third parties. We may share your information in the following circumstances:",
+        "list": {
+          "item1": "With service providers who perform services on our behalf",
+          "item2": "To comply with legal obligations",
+          "item3": "To protect and defend our rights and property"
+        }
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We have implemented appropriate technical and organizational measures to secure your personal information from accidental loss and unauthorized access, use, alteration, and disclosure. However, please be aware that no method of transmission over the Internet or method of electronic storage is 100% secure."
+      },
+      "cookies": {
+        "title": "Cookies and Similar Technologies",
+        "content": "We use cookies and similar tracking technologies to track activity on our website and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.",
+        "subsections": {
+          "types": {
+            "title": "Types of Cookies We Use",
+            "list": {
+              "essential": {
+                "title": "Essential Cookies",
+                "content": "Necessary for the website to function properly"
+              },
+              "analytics": {
+                "title": "Analytics Cookies",
+                "content": "Help us understand how visitors interact with our website"
+              },
+              "functional": {
+                "title": "Functional Cookies",
+                "content": "Enable personalized features and remember your preferences"
+              }
+            }
+          }
+        }
+      },
+      "rights": {
+        "title": "Your Data Protection Rights",
+        "content": "Depending on your location, you may have certain rights regarding your personal information, including:",
+        "list": {
+          "item1": "The right to access your personal information",
+          "item2": "The right to rectify inaccurate personal information",
+          "item3": "The right to request deletion of your personal information",
+          "item4": "The right to restrict processing of your personal information",
+          "item5": "The right to data portability"
+        }
+      },
+      "changes": {
+        "title": "Changes to This Privacy Policy",
+        "content": "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the 'last updated' date at the top of this page."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "content": "If you have any questions about this Privacy Policy, please contact us through our support channels."
+      }
+    },
+    "termsOfServiceLink": "Terms of Service",
+    "botRequirementsLink": "Bot Requirements"
+  },
+  "errors": {
+    "invalidRequest": "Invalid request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "botNotFound": "Bot not found or does not exist",
+    "botAlreadyAdded": "Bot already added",
+    "serverError": "Server error",
+    "unexpectedError": "Unexpected error"
+  },
+  "topBots": {
+    "title": "Top Voted Bots",
+    "description": "Discover the most popular bots on our platform, ranked by user votes. These bots have been recognized by our community for their quality and usefulness."
+  },
+  "newBots": {
+    "title": "Recently Added Bots",
+    "description": "Check out the newest additions to our platform. These bots have been recently added and are waiting for you to discover them.",
+    "addedOn": "Added on"
+  },
+  "popularBots": {
+    "title": "Most Used Bots",
+    "description": "These bots are widely used across many Discord servers. Discover the most popular bots based on server count."
+  },
+  "errors": {
+    "invalidRequest": "Invalid request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "botNotFound": "Bot not found or does not exist",
+    "botAlreadyAdded": "Bot already added",
+    "serverError": "Server error",
+    "unexpectedError": "Unexpected error",
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundDesc": "The page you are looking for doesn't exist or has been moved.",
+    "backToHome": "Back to Home",
+    "goBack": "Go Back",
+    "trySearching": "Try searching for bots instead:",
+    "reportIssue": "If you believe this is an error, please report it in our",
+    "supportServer": "support server"
+  }
+}
