@@ -450,13 +450,26 @@
     "supportServer": "support server"
   },
   "vote": {
-    "title": "Vote",
-    "systemNotReady": "Voting System Under Development",
-    "comingSoon": "We're still working on our voting system. It will be available soon!",
-    "voteButton": "Vote for this bot",
+    "title": "Vote for this Bot",
+    "voteButton": "Vote",
+    "voting": "Voting...",
+    "voteSuccess": "Vote registered successfully!",
+    "voteError": "An error occurred while voting. Please try again.",
+    "alreadyVoted": "You have already voted for this bot recently.",
     "cooldownExplain": "You can vote for each bot once every 12 hours.",
-    "developmentMessage": "The voting feature is currently in development. Check back later!",
-    "returnToBot": "Return to bot page",
-    "expectedReleaseDate": "Expected release"
+    "tryAgainIn": "Try again in",
+    "hours": "h",
+    "minutes": "m",
+    "loginRequired": "Login Required",
+    "loginRequiredDesc": "You need to be logged in to vote for bots.",
+    "securityCheck": "Security Check",
+    "captchaTitle": "Verification",
+    "solveEquation": "Solve the equation",
+    "enterAnswer": "Enter your answer",
+    "verify": "Verify",
+    "verified": "Verified",
+    "incorrectCaptcha": "Incorrect answer. Please try again.",
+    "captchaSuccess": "Verification successful!",
+    "refreshCaptcha": "Refresh captcha"
   }
 }

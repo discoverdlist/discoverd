@@ -450,13 +450,26 @@
     "supportServer": "servidor de suporte"
   },
   "vote": {
-    "title": "Votar",
-    "systemNotReady": "Sistema de Votação em Desenvolvimento",
-    "comingSoon": "Ainda estamos trabalhando em nosso sistema de votação. Estará disponível em breve!",
-    "voteButton": "Votar neste bot",
+    "title": "Votar neste Bot",
+    "voteButton": "Votar",
+    "voting": "Votando...",
+    "voteSuccess": "Voto registrado com sucesso!",
+    "voteError": "Ocorreu um erro ao votar. Por favor, tente novamente.",
+    "alreadyVoted": "Você já votou neste bot recentemente.",
     "cooldownExplain": "Você pode votar em cada bot uma vez a cada 12 horas.",
-    "developmentMessage": "O recurso de votação está em desenvolvimento. Volte mais tarde!",
-    "returnToBot": "Retornar à página do bot",
-    "expectedReleaseDate": "Lançamento previsto"
+    "tryAgainIn": "Tente novamente em",
+    "hours": "h",
+    "minutes": "m",
+    "loginRequired": "Login Necessário",
+    "loginRequiredDesc": "Você precisa estar logado para votar em bots.",
+    "securityCheck": "Verificação de Segurança",
+    "captchaTitle": "Verificação",
+    "solveEquation": "Resolva a equação",
+    "enterAnswer": "Digite sua resposta",
+    "verify": "Verificar",
+    "verified": "Verificado",
+    "incorrectCaptcha": "Resposta incorreta. Por favor, tente novamente.",
+    "captchaSuccess": "Verificação bem-sucedida!",
+    "refreshCaptcha": "Atualizar captcha"
   }
 }
