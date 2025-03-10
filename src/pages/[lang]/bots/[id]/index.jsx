@@ -4,8 +4,6 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 import {
   ExternalLink,
   AlertTriangle,
@@ -93,7 +91,6 @@ export default function BotPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <Navbar />
         <main className="flex-grow container mx-auto px-4 py-24">
           <div className="animate-pulse bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg p-8 border border-gray-100 dark:border-gray-700/50">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
@@ -120,7 +117,6 @@ export default function BotPage() {
             </div>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -128,7 +124,6 @@ export default function BotPage() {
   if (!botData || botData.message) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <Navbar />
         <main className="flex-grow container mx-auto px-4 py-24">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center max-w-md mx-auto border border-gray-100 dark:border-gray-700/50">
             <Bot className="h-16 w-16 mx-auto text-primary mb-4" />
@@ -147,14 +142,12 @@ export default function BotPage() {
             </Link>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <Navbar />
       <main className="flex-grow container mx-auto px-4 py-24">
         {router.query.edit === "success" && (
           <div
@@ -321,7 +314,6 @@ export default function BotPage() {
           />
         </div>
       </main>
-      <Footer />
 
       {/* Inline styles for markdown content */}
       <style jsx global>{`
