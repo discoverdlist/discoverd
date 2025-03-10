@@ -47,7 +47,8 @@
     "privacy": "Privacy Policy",
     "subscribe": "Subscribe",
     "subscribeText": "Receive the latest news about bots and updates.",
-    "yourEmail": "Your email"
+    "yourEmail": "Your email",
+    "subscribe": "Subscribe"
   },
   "home": {
     "hero": {
@@ -69,6 +70,7 @@
     "about": "About the Bot",
     "vote": "Vote",
     "addToServer": "Add to Server",
+    "viewOwner": "View Owner Profile",
     "botNotFound": "Bot not found",
     "botNotFoundDesc": "The bot you are looking for does not exist or has been removed.",
     "backToHome": "Back to home page",
@@ -143,15 +145,24 @@
     "editProfile": "Edit Profile",
     "deleteAccount": "Delete Account",
     "deleteAccountWarning": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
-    "myBots": "My Bots",
+    "myBots": "Bots",
     "votedBots": "Voted Bots",
-    "noBotsYet": "You don't have any bots yet",
+    "noBotsYet": "No bots yet",
     "addFirstBot": "How about adding your first bot to our platform?",
     "noVotedBots": "You haven't voted for any bots yet",
     "exploreAndVote": "Explore our platform and vote for the bots you like!",
     "exploreBots": "Explore Bots",
     "viewDetails": "View Details",
-    "memberSince": "Member since"
+    "memberSince": "Member since",
+    "description": "Description",
+    "descriptionPlaceholder": "Tell us about yourself...",
+    "userNotFound": "User Not Found",
+    "userNotFoundDesc": "The user you are looking for does not exist or has been removed.",
+    "stats": "User Stats",
+    "bots": "Bots",
+    "servers": "Servers",
+    "daysAsMember": "Days as Member",
+    "hasNotAddedBots": "has not added any bots yet."
   },
   "settings": {
     "title": "Account Settings",
@@ -177,7 +188,8 @@
     "deleteAccount": "Delete Account",
     "deleteAccountDesc": "Once you delete your account, there is no going back. Please be certain.",
     "saveSettings": "Save Settings",
-    "settingsSaved": "Settings saved successfully!"
+    "settingsSaved": "Settings saved successfully!",
+    "saving": "Saving..."
   },
   "partners": {
     "title": "Our Partners",
@@ -426,7 +438,7 @@
   },
   "newBots": {
     "title": "Recently Added Bots",
-    "description": "Check out the newest additions to our platform. These bots have been recently added and are waiting for you to discover them.",
+    "description": "Check out the latest additions to our platform. These bots were recently added and are waiting to be discovered by you.",
     "addedOn": "Added on"
   },
   "popularBots": {

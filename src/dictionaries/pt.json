@@ -69,6 +69,7 @@
     "about": "Sobre o Bot",
     "vote": "Votar",
     "addToServer": "Adicionar ao Servidor",
+    "viewOwner": "Ver Perfil do Dono",
     "botNotFound": "Bot não encontrado",
     "botNotFoundDesc": "O bot que você está procurando não existe ou foi removido.",
     "backToHome": "Voltar para a página inicial",
@@ -143,15 +144,24 @@
     "editProfile": "Editar Perfil",
     "deleteAccount": "Excluir Conta",
     "deleteAccountWarning": "Esta ação não pode ser desfeita. Isso excluirá permanentemente sua conta e removerá seus dados de nossos servidores.",
-    "myBots": "Meus Bots",
+    "myBots": "Bots",
     "votedBots": "Bots Votados",
-    "noBotsYet": "Você ainda não tem bots",
+    "noBotsYet": "Nenhum bot ainda",
     "addFirstBot": "Que tal adicionar seu primeiro bot à nossa plataforma?",
     "noVotedBots": "Você ainda não votou em nenhum bot",
     "exploreAndVote": "Explore nossa plataforma e vote nos bots que você gosta!",
     "exploreBots": "Explorar Bots",
     "viewDetails": "Ver Detalhes",
-    "memberSince": "Membro desde"
+    "memberSince": "Membro desde",
+    "description": "Descrição",
+    "descriptionPlaceholder": "Conte-nos sobre você...",
+    "userNotFound": "Usuário Não Encontrado",
+    "userNotFoundDesc": "O usuário que você está procurando não existe ou foi removido.",
+    "stats": "Estatísticas do Usuário",
+    "bots": "Bots",
+    "servers": "Servidores",
+    "daysAsMember": "Dias como Membro",
+    "hasNotAddedBots": "ainda não adicionou nenhum bot."
   },
   "settings": {
     "title": "Configurações da Conta",
@@ -177,7 +187,8 @@
     "deleteAccount": "Excluir Conta",
     "deleteAccountDesc": "Depois de excluir sua conta, não há como voltar atrás. Por favor, tenha certeza.",
     "saveSettings": "Salvar Configurações",
-    "settingsSaved": "Configurações salvas com sucesso!"
+    "settingsSaved": "Configurações salvas com sucesso!",
+    "saving": "Salvando..."
   },
   "partners": {
     "title": "Nossos Parceiros",
@@ -190,7 +201,7 @@
       "title": "Benefícios da Parceria",
       "promotion": "Promoção em nossa plataforma",
       "badge": "Distintivo exclusivo de parceiro",
-      "support": "Promoção em nossa plataforma",
+      "support": "Suporte prioritário",
       "api": "Acesso à API"
     },
     "requirements": {
@@ -324,7 +335,7 @@
   },
   "privacy": {
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: {date}",
+    "lastUpdated": "{date}",
     "introduction": "No DiscordList, respeitamos sua privacidade e estamos comprometidos em proteger seus dados pessoais. Esta Política de Privacidade explica como coletamos, usamos e protegemos suas informações quando você usa nosso site.",
     "sections": {
       "information": {

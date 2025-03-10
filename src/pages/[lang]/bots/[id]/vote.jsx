@@ -94,7 +94,6 @@ export default function VotePage() {
           type: "success",
           message: data.message || t("vote.voteSuccess"),
         });
-        // Atualizar o bot para refletir o novo voto
         if (bot) {
           setBot({
             ...bot,
@@ -117,7 +116,6 @@ export default function VotePage() {
         });
       }
 
-      // Reset reCAPTCHA
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
@@ -129,7 +127,6 @@ export default function VotePage() {
         message: t("vote.voteError"),
       });
 
-      // Reset reCAPTCHA on error
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
@@ -159,13 +156,15 @@ export default function VotePage() {
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <main className="flex-grow container mx-auto px-4 py-8">
-          <div className="max-w-3xl mx-auto mt-12 text-center">
-            <div className="animate-pulse">
-              <div className="h-32 w-32 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-4"></div>
-              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-64 mx-auto mb-4"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full max-w-md mx-auto mb-8"></div>
-              <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded w-48 mx-auto"></div>
+        <main className="flex-grow container mx-auto px-4 py-24">
+          <div className="animate-pulse bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg p-8 border border-gray-100 dark:border-gray-700/50 max-w-3xl mx-auto">
+            <div className="flex flex-col items-center gap-6">
+              <div className="w-32 h-32 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+              <div className="space-y-4 w-full max-w-md">
+                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-lg w-3/4 mx-auto"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-full"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-5/6 mx-auto"></div>
+              </div>
             </div>
           </div>
         </main>
@@ -176,20 +175,18 @@ export default function VotePage() {
   if (!bot) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <main className="flex-grow container mx-auto px-4 py-8">
-          <div className="max-w-3xl mx-auto mt-12 text-center">
-            <div className="mb-6">
-              <Bot className="w-24 h-24 mx-auto text-gray-400 dark:text-gray-600" />
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        <main className="flex-grow container mx-auto px-4 py-24">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center max-w-md mx-auto border border-gray-100 dark:border-gray-700/50">
+            <Bot className="h-16 w-16 mx-auto text-primary mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               {t("botPage.botNotFound")}
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               {t("botPage.botNotFoundDesc")}
             </p>
             <Link
               href={`/${lang || "en"}`}
-              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary/90 transition-colors shadow-sm hover:shadow"
             >
               {t("botPage.backToHome")}
             </Link>
@@ -201,7 +198,7 @@ export default function VotePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-24">
         <div className="max-w-3xl mx-auto">
           <Link
             href={`/${lang || "en"}/bots/${id}`}
@@ -215,26 +212,30 @@ export default function VotePage() {
             {t("common.back")}
           </Link>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700/50">
             <div className="p-6 md:p-8">
-              <div className="flex flex-col md:flex-row items-center mb-6">
-                <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0 md:mr-6 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700 ring-4 ring-primary/20">
-                  <Image
-                    src={bot.avatar || "/placeholder.svg?height=128&width=128"}
-                    alt={bot.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 96px, 128px"
-                  />
+              <div className="flex flex-col items-center mb-6">
+                <div className="relative w-32 h-32 mb-4">
+                  <div className="w-full h-full rounded-full overflow-hidden ring-4 ring-primary/20 shadow-lg">
+                    <Image
+                      src={
+                        bot.avatar || "/placeholder.svg?height=128&width=128"
+                      }
+                      alt={bot.name}
+                      width={128}
+                      height={128}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
                 </div>
-                <div className="text-center md:text-left">
+                <div className="text-center">
                   <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                     {bot.name}
                   </h1>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  <p className="text-gray-600 dark:text-gray-300 mb-2 max-w-lg mx-auto">
                     {bot.description}
                   </p>
-                  <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
+                  <div className="flex items-center justify-center gap-2 mt-2">
                     <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-purple-100/80 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
                       <ThumbsUp className="w-3 h-3 mr-1" />
                       {Number(bot.votes || 0).toLocaleString(
@@ -301,7 +302,6 @@ export default function VotePage() {
                       </div>
                     )}
 
-                    {/* reCAPTCHA Section */}
                     {voteStatus?.type !== "cooldown" &&
                       voteStatus?.type !== "success" && (
                         <div className="mb-6">
