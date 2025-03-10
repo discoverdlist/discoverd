@@ -31,7 +31,8 @@
     "submit": "Submit",
     "sending": "Sending...",
     "warning": "Warning",
-    "view": "View"
+    "view": "View",
+    "back": "Back"
   },
   "nav": {
     "mainMenu": "Main menu"
@@ -46,8 +47,7 @@
     "privacy": "Privacy Policy",
     "subscribe": "Subscribe",
     "subscribeText": "Receive the latest news about bots and updates.",
-    "yourEmail": "Your email",
-    "subscribe": "Subscribe"
+    "yourEmail": "Your email"
   },
   "home": {
     "hero": {
@@ -420,15 +420,6 @@
     "termsOfServiceLink": "Terms of Service",
     "botRequirementsLink": "Bot Requirements"
   },
-  "errors": {
-    "invalidRequest": "Invalid request",
-    "unauthorized": "Unauthorized",
-    "forbidden": "Forbidden",
-    "botNotFound": "Bot not found or does not exist",
-    "botAlreadyAdded": "Bot already added",
-    "serverError": "Server error",
-    "unexpectedError": "Unexpected error"
-  },
   "topBots": {
     "title": "Top Voted Bots",
     "description": "Discover the most popular bots on our platform, ranked by user votes. These bots have been recognized by our community for their quality and usefulness."
@@ -457,5 +448,15 @@
     "trySearching": "Try searching for bots instead:",
     "reportIssue": "If you believe this is an error, please report it in our",
     "supportServer": "support server"
+  },
+  "vote": {
+    "title": "Vote",
+    "systemNotReady": "Voting System Under Development",
+    "comingSoon": "We're still working on our voting system. It will be available soon!",
+    "voteButton": "Vote for this bot",
+    "cooldownExplain": "You can vote for each bot once every 12 hours.",
+    "developmentMessage": "The voting feature is currently in development. Check back later!",
+    "returnToBot": "Return to bot page",
+    "expectedReleaseDate": "Expected release"
   }
 }

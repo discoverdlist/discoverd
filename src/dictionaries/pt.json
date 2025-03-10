@@ -31,7 +31,8 @@
     "submit": "Enviar",
     "sending": "Enviando...",
     "warning": "Aviso",
-    "view": "Ver"
+    "view": "Ver",
+    "back": "Voltar"
   },
   "nav": {
     "mainMenu": "Menu principal"
@@ -46,8 +47,7 @@
     "privacy": "Política de Privacidade",
     "subscribe": "Inscreva-se",
     "subscribeText": "Receba as últimas novidades sobre bots e atualizações.",
-    "yourEmail": "Seu email",
-    "subscribe": "Inscrever"
+    "yourEmail": "Seu email"
   },
   "home": {
     "hero": {
@@ -191,8 +191,6 @@
       "promotion": "Promoção em nossa plataforma",
       "badge": "Distintivo exclusivo de parceiro",
       "support": "Promoção em nossa plataforma",
-      "badge": "Distintivo exclusivo de parceiro",
-      "support": "Suporte prioritário",
       "api": "Acesso à API"
     },
     "requirements": {
@@ -422,15 +420,6 @@
     "termsOfServiceLink": "Termos de Serviço",
     "botRequirementsLink": "Requisitos para Bots"
   },
-  "errors": {
-    "invalidRequest": "Requisição inválida",
-    "unauthorized": "Não autorizado",
-    "forbidden": "Proibido",
-    "botNotFound": "Bot não encontrado ou não existente",
-    "botAlreadyAdded": "Bot já adicionado",
-    "serverError": "Erro interno do servidor",
-    "unexpectedError": "Erro inesperado"
-  },
   "topBots": {
     "title": "Bots Mais Votados",
     "description": "Descubra os bots mais populares em nossa plataforma, classificados por votos dos usuários. Esses bots foram reconhecidos pela nossa comunidade por sua qualidade e utilidade."
@@ -459,5 +448,15 @@
     "trySearching": "Tente pesquisar por bots:",
     "reportIssue": "Se você acredita que isso é um erro, por favor, reporte em nosso",
     "supportServer": "servidor de suporte"
+  },
+  "vote": {
+    "title": "Votar",
+    "systemNotReady": "Sistema de Votação em Desenvolvimento",
+    "comingSoon": "Ainda estamos trabalhando em nosso sistema de votação. Estará disponível em breve!",
+    "voteButton": "Votar neste bot",
+    "cooldownExplain": "Você pode votar em cada bot uma vez a cada 12 horas.",
+    "developmentMessage": "O recurso de votação está em desenvolvimento. Volte mais tarde!",
+    "returnToBot": "Retornar à página do bot",
+    "expectedReleaseDate": "Lançamento previsto"
   }
 }
