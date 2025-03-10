@@ -470,6 +470,7 @@
     "verified": "Verified",
     "incorrectCaptcha": "Incorrect answer. Please try again.",
     "captchaSuccess": "Verification successful!",
-    "refreshCaptcha": "Refresh captcha"
+    "refreshCaptcha": "Refresh captcha",
+    "recaptchaDisclaimer": "This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply."
   }
 }

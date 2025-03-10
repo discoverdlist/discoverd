@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,13 +14,14 @@ import {
 } from "lucide-react";
 import { useTranslation } from "../../../../hooks/useTranslation";
 import { useSession } from "next-auth/react";
-import SimpleCaptcha from "../../../../components/SimpleCaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function VotePage() {
   const router = useRouter();
   const { id, lang } = router.query;
   const { t } = useTranslation();
   const { data: session, status } = useSession();
+  const recaptchaRef = useRef(null);
 
   const [bot, setBot] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,7 @@ export default function VotePage() {
   const [voteStatus, setVoteStatus] = useState(null);
   const [cooldown, setCooldown] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -58,8 +59,16 @@ export default function VotePage() {
     fetchBot();
   }, [id]);
 
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+  };
+
+  const handleRecaptchaExpired = () => {
+    setRecaptchaToken(null);
+  };
+
   const handleVote = async () => {
-    if (!session || !id || !isCaptchaVerified) return;
+    if (!session || !id || !recaptchaToken) return;
 
     try {
       setIsVoting(true);
@@ -74,6 +83,7 @@ export default function VotePage() {
         body: JSON.stringify({
           userId: session.session.user.id,
           botId: id,
+          recaptchaToken: recaptchaToken,
         }),
       });
 
@@ -107,15 +117,23 @@ export default function VotePage() {
         });
       }
 
-      // Reset captcha verification after vote attempt
-      setIsCaptchaVerified(false);
+      // Reset reCAPTCHA
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+      setRecaptchaToken(null);
     } catch (error) {
       console.error("Error voting:", error);
       setVoteStatus({
         type: "error",
         message: t("vote.voteError"),
       });
-      setIsCaptchaVerified(false);
+
+      // Reset reCAPTCHA on error
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+      setRecaptchaToken(null);
     } finally {
       setIsVoting(false);
     }
@@ -136,10 +154,6 @@ export default function VotePage() {
     }
 
     return result.trim();
-  };
-
-  const handleCaptchaVerify = (isVerified) => {
-    setIsCaptchaVerified(isVerified);
   };
 
   if (isLoading) {
@@ -287,7 +301,7 @@ export default function VotePage() {
                       </div>
                     )}
 
-                    {/* Captcha Section */}
+                    {/* reCAPTCHA Section */}
                     {voteStatus?.type !== "cooldown" &&
                       voteStatus?.type !== "success" && (
                         <div className="mb-6">
@@ -297,7 +311,28 @@ export default function VotePage() {
                               {t("vote.securityCheck")}
                             </h3>
                           </div>
-                          <SimpleCaptcha onVerify={handleCaptchaVerify} t={t} />
+                          <div className="flex justify-center">
+                            {isMounted && (
+                              <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey="6LcWivAqAAAAAPP19R-i4Ea1ZiRUpnzr2n79uusC"
+                                onChange={handleRecaptchaChange}
+                                onExpired={handleRecaptchaExpired}
+                                hl={lang || "en"}
+                                theme={
+                                  document.documentElement.classList.contains(
+                                    "dark"
+                                  )
+                                    ? "dark"
+                                    : "light"
+                                }
+                                size="normal"
+                              />
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                            {t("vote.recaptchaDisclaimer")}
+                          </p>
                         </div>
                       )}
 
@@ -308,13 +343,13 @@ export default function VotePage() {
                           isVoting ||
                           voteStatus?.type === "cooldown" ||
                           voteStatus?.type === "success" ||
-                          !isCaptchaVerified
+                          !recaptchaToken
                         }
                         className={`inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-lg text-white transition-colors ${
                           isVoting ||
                           voteStatus?.type === "cooldown" ||
                           voteStatus?.type === "success" ||
-                          !isCaptchaVerified
+                          !recaptchaToken
                             ? "bg-gray-400 dark:bg-gray-600 cursor-not-allowed"
                             : "bg-primary hover:bg-primary/90"
                         }`}
