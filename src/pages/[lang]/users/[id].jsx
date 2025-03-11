@@ -12,6 +12,9 @@ import {
   ThumbsUp,
   Server,
   Clock,
+  Shield,
+  ShieldAlert,
+  ShieldCheck,
 } from "lucide-react";
 import { useTranslation } from "../../../hooks/useTranslation";
 
@@ -89,6 +92,36 @@ export default function UserProfilePage() {
 
     return () => clearTimeout(timeoutId);
   }, [isLoading, userData, error]);
+
+  // Function to determine user role badge
+  const getUserRoleBadge = (user) => {
+    if (!user) return null;
+
+    if (user.admin) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-rose-100/80 text-rose-800 dark:bg-rose-900/30 dark:text-rose-200 border border-rose-200 dark:border-rose-800/30">
+          <ShieldAlert className="w-3 h-3 mr-1" />
+          Administrador
+        </span>
+      );
+    } else if (user.moderator) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-100/80 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/30">
+          <ShieldCheck className="w-3 h-3 mr-1" />
+          Moderador
+        </span>
+      );
+    } else if (user.staff) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-100/80 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 border border-blue-200 dark:border-blue-800/30">
+          <Shield className="w-3 h-3 mr-1" />
+          Staff
+        </span>
+      );
+    }
+
+    return null;
+  };
 
   if (isLoading) {
     return (
@@ -213,9 +246,12 @@ export default function UserProfilePage() {
                 <div className="text-center md:text-left flex-1">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
-                      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                        {userData.username}
-                      </h1>
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 mb-1">
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                          {userData.username}
+                        </h1>
+                        {getUserRoleBadge(userData)}
+                      </div>
                       <div className="flex items-center justify-center md:justify-start text-gray-500 dark:text-gray-400 mb-4">
                         <Calendar className="w-4 h-4 mr-1" />
                         <span className="text-sm">
@@ -250,7 +286,7 @@ export default function UserProfilePage() {
             <div className="p-6 md:p-8">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                 <Bot className="w-5 h-5 mr-2 text-primary" />
-                {userData.username}&apos;s {t("profile.myBots")}
+                {userData.username}&quot;s {t("profile.myBots")}
               </h2>
 
               {userBots.length > 0 ? (
@@ -287,13 +323,19 @@ export default function UserProfilePage() {
                           {bot.votes > 0 && (
                             <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-purple-100/80 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
                               <ThumbsUp className="w-3 h-3 mr-1" />
-                              {bot.votes} {t("botCard.votes")}
+                              {Number(bot.votes).toLocaleString(
+                                lang === "en" ? "en-US" : "pt-BR"
+                              )}{" "}
+                              {t("botCard.votes")}
                             </span>
                           )}
                           {bot.servers > 0 && (
                             <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-blue-100/80 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
                               <Server className="w-3 h-3 mr-1" />
-                              {bot.servers} {t("botCard.servers")}
+                              {Number(bot.servers).toLocaleString(
+                                lang === "en" ? "en-US" : "pt-BR"
+                              )}{" "}
+                              {t("botCard.servers")}
                             </span>
                           )}
                           {bot.createdAt && (
